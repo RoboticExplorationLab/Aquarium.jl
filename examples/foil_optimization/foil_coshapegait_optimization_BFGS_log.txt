@@ -1,0 +1,562 @@
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =            4     M =            5
+
+ L =  1.0472D-01  3.2557D-01  0.0000D+00  0.0000D+00
+
+X0 =  3.9406D-01  6.5114D-01  0.0000D+00  1.5708D+00
+
+ U =  3.9406D-01  9.7671D-01  1.0472D+00  3.1416D+00
+
+At X0         2 variables are exactly at the bounds
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:19
+
+At iterate    0    f=  1.07973D+01    |proj g|=  1.04720D+00
+
+
+ITERATION     1
+
+---------------- CAUCHY entered-------------------
+ There are            3   breakpoints 
+
+Piece      1 --f1, f2 at start point  -4.3286D+03  4.3286D+03
+Distance to the next break point =   4.4163D-03
+Distance to the stationary point =   1.0000D+00
+ Variable             1   is fixed.
+
+Piece      2 --f1, f2 at start point  -3.5959D+01  3.6118D+01
+Distance to the next break point =   5.2325D-02
+Distance to the stationary point =   9.9558D-01
+ Variable             2   is fixed.
+
+Piece      3 --f1, f2 at start point  -3.0151D+00  3.1965D+00
+Distance to the next break point =   5.2898D-01
+Distance to the stationary point =   9.4326D-01
+ Variable             3   is fixed.
+
+ GCP found in this segment
+Piece      4 --f1, f2 at start point   0.0000D+00  0.0000D+00
+Distance to the stationary point =   0.0000D+00
+Cauchy X =  
+      1.0472D-01  3.2557D-01  1.0472D+00  1.5708D+00
+
+---------------- exit CAUCHY----------------------
+
+           1  variables are free at GCP            1
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:59
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:57
+ LINE SEARCH           1  times; norm of step =   0.54035728619410872     
+
+At iterate    1    f=  4.60957D+00    |proj g|=  1.57080D+00
+
+ X =  2.5621D-01  4.9602D-01  4.9892D-01  1.5708D+00
+
+ G =  3.7213D+01 -1.1897D+01  1.1044D+01  1.8090D+00
+
+
+ITERATION     2
+
+---------------- CAUCHY entered-------------------
+ There are            4   breakpoints 
+
+Piece      1 --f1, f2 at start point  -1.6516D+03  1.9788D+05
+Distance to the next break point =   4.0709D-03
+Distance to the stationary point =   8.3463D-03
+ Variable             1   is fixed.
+
+Piece      2 --f1, f2 at start point  -2.5995D+02  1.7654D+04
+Distance to the next break point =   3.6332D-02
+Distance to the stationary point =   1.4725D-02
+
+ GCP found in this segment
+Piece      2 --f1, f2 at start point  -2.5995D+02  1.7654D+04
+Distance to the stationary point =   1.4725D-02
+Cauchy X =  
+      1.0472D-01  7.1964D-01  2.9134D-01  1.5368D+00
+
+---------------- exit CAUCHY----------------------
+
+ Variable            3  enters the set of free variables
+ Variable            2  enters the set of free variables
+           0  variables leave;            2  variables enter
+           3  variables are free at GCP            2
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:06
+ LINE SEARCH           0  times; norm of step =   0.54609907229580201     
+
+At iterate    2    f=  1.08595D+00    |proj g|=  1.03990D+00
+
+ X =  1.0472D-01  6.7894D-01  7.2968D-03  1.5598D+00
+
+ G =  2.3544D-01  1.5639D+00 -8.2696D+00 -2.3851D-02
+
+
+ITERATION     3
+
+---------------- CAUCHY entered-------------------
+ There are            3   breakpoints 
+
+Piece      1 --f1, f2 at start point  -7.0833D+01  2.5781D+03
+Distance to the next break point =   1.2575D-01
+Distance to the stationary point =   2.7475D-02
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -7.0833D+01  2.5781D+03
+Distance to the stationary point =   2.7475D-02
+Cauchy X =  
+      1.0472D-01  6.3597D-01  2.3451D-01  1.5605D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           3  variables are free at GCP            3
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:38
+ LINE SEARCH           0  times; norm of step =   0.23339010477931071     
+
+At iterate    3    f= -2.55729D-01    |proj g|=  5.95533D-01
+
+ X =  1.0472D-01  6.4600D-01  2.3832D-01  1.5560D+00
+
+ G =  3.7913D+00 -7.3502D+00  1.2168D+00  5.9553D-01
+
+
+ITERATION     4
+
+---------------- CAUCHY entered-------------------
+ There are            3   breakpoints 
+
+Piece      1 --f1, f2 at start point  -5.5860D+01  6.7276D+03
+Distance to the next break point =   4.4993D-02
+Distance to the stationary point =   8.3032D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -5.5860D+01  6.7276D+03
+Distance to the stationary point =   8.3032D-03
+Cauchy X =  
+      1.0472D-01  7.0703D-01  2.2821D-01  1.5510D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           3  variables are free at GCP            4
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:25
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:49
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:31
+ LINE SEARCH           2  times; norm of step =   0.33339966464055137     
+
+At iterate    4    f= -3.29974D+00    |proj g|=  1.47673D+00
+
+ X =  1.0472D-01  9.7671D-01  2.7156D-01  1.5298D+00
+
+ G =  8.0658D+00 -9.4005D+00 -4.2765D+00  1.4767D+00
+  ys=-8.837E-01  -gs= 2.406E+00 BFGS update SKIPPED
+
+
+ITERATION     5
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -2.0469D+01  8.1204D+02
+Distance to the next break point =   1.8137D-01
+Distance to the stationary point =   2.5207D-02
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -2.0469D+01  8.1204D+02
+Distance to the stationary point =   2.5207D-02
+Cauchy X =  
+      1.0472D-01  9.7671D-01  3.7936D-01  1.4926D+00
+
+---------------- exit CAUCHY----------------------
+
+ Variable            2  leaves the set of free variables
+           1  variables leave;            0  variables enter
+           2  variables are free at GCP            5
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:39
+ LINE SEARCH           0  times; norm of step =   0.11770941823114925     
+
+At iterate    5    f= -3.67444D+00    |proj g|=  1.50453D+00
+
+ X =  1.0472D-01  9.7671D-01  3.8652D-01  1.5045D+00
+
+ G =  9.6574D+00 -1.3349D+01  3.5558D-01  3.4719D+00
+
+
+ITERATION     6
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -1.2180D+01  1.2133D+03
+Distance to the next break point =   4.3335D-01
+Distance to the stationary point =   1.0039D-02
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -1.2180D+01  1.2133D+03
+Distance to the stationary point =   1.0039D-02
+Cauchy X =  
+      1.0472D-01  9.7671D-01  3.8295D-01  1.4697D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP            6
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:26
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:25
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:16:32
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:32
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:15
+ LINE SEARCH           4  times; norm of step =   0.31201245424147556     
+
+At iterate    6    f= -4.07472D+00    |proj g|=  5.53049D-01
+
+ X =  1.0472D-01  9.7671D-01  5.5305D-01  1.2407D+00
+
+ G =  4.6041D+00 -1.2463D+01  4.0694D+00  1.8762D-01
+
+
+ITERATION     7
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -1.6595D+01  9.4689D+02
+Distance to the next break point =   1.3591D-01
+Distance to the stationary point =   1.7526D-02
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -1.6595D+01  9.4689D+02
+Distance to the stationary point =   1.7526D-02
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.8173D-01  1.2374D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP            7
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:56
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:32
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:54
+ LINE SEARCH           2  times; norm of step =   0.10558821223741506     
+
+At iterate    7    f= -4.15684D+00    |proj g|=  9.79794D-01
+
+ X =  1.0472D-01  9.7671D-01  4.6821D-01  1.3035D+00
+
+ G =  7.8072D+00 -1.4883D+01 -2.2562D+00  9.7979D-01
+
+
+ITERATION     8
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -6.0505D+00  3.9866D+02
+Distance to the next break point =   2.5662D-01
+Distance to the stationary point =   1.5177D-02
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -6.0505D+00  3.9866D+02
+Distance to the stationary point =   1.5177D-02
+Cauchy X =  
+      1.0472D-01  9.7671D-01  5.0245D-01  1.2887D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP            8
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:35
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:58
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:27
+ LINE SEARCH           2  times; norm of step =    9.1663994058868211E-003
+
+At iterate    8    f= -4.17740D+00    |proj g|=  5.57179D-01
+
+ X =  1.0472D-01  9.7671D-01  4.7338D-01  1.2960D+00
+
+ G =  9.0778D+00 -1.4062D+01 -5.5718D-01  4.9026D-01
+
+
+ITERATION     9
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -5.5081D-01  1.1475D+02
+Distance to the next break point =   1.0299D+00
+Distance to the stationary point =   4.7999D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -5.5081D-01  1.1475D+02
+Distance to the stationary point =   4.7999D-03
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.7606D-01  1.2936D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP            9
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:20
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:49
+ LINE SEARCH           1  times; norm of step =    1.5515806441618461E-003
+
+At iterate    9    f= -4.17776D+00    |proj g|=  1.66787D-01
+
+ X =  1.0472D-01  9.7671D-01  4.7343D-01  1.2944D+00
+
+ G =  9.4794D+00 -1.3243D+01 -1.6679D-01 -5.3940D-02
+
+
+ITERATION    10
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -3.0727D-02  7.8195D+00
+Distance to the next break point =   3.4401D+00
+Distance to the stationary point =   3.9296D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -3.0727D-02  7.8195D+00
+Distance to the stationary point =   3.9296D-03
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.7408D-01  1.2946D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP           10
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:22
+ LINE SEARCH           0  times; norm of step =    1.1684180014872880E-003
+
+At iterate   10    f= -4.17791D+00    |proj g|=  8.56551D-02
+
+ X =  1.0472D-01  9.7671D-01  4.7431D-01  1.2952D+00
+
+ G =  9.5053D+00 -1.3066D+01 -8.5655D-02 -4.3309D-02
+
+
+ITERATION    11
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -9.2125D-03  1.0264D+00
+Distance to the next break point =   6.6883D+00
+Distance to the stationary point =   8.9756D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -9.2125D-03  1.0264D+00
+Distance to the stationary point =   8.9756D-03
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.7508D-01  1.2956D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP           11
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:06
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:58
+ LINE SEARCH           1  times; norm of step =    6.6371925247277501E-004
+
+At iterate   11    f= -4.17794D+00    |proj g|=  4.17748D-02
+
+ X =  1.0472D-01  9.7671D-01  4.7479D-01  1.2956D+00
+
+ G =  9.5265D+00 -1.2950D+01  3.7467D-02 -4.1775D-02
+
+
+ITERATION    12
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -3.1489D-03  2.2768D+00
+Distance to the next break point =   1.2672D+01
+Distance to the stationary point =   1.3830D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -3.1489D-03  2.2768D+00
+Distance to the stationary point =   1.3830D-03
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.7474D-01  1.2957D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP           12
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:14:52
+ LINE SEARCH           0  times; norm of step =    1.3609488695842605E-004
+
+At iterate   12    f= -4.17794D+00    |proj g|=  1.12256D-02
+
+ X =  1.0472D-01  9.7671D-01  4.7480D-01  1.2958D+00
+
+ G =  9.5045D+00 -1.2998D+01  1.1226D-02 -8.1525D-03
+
+
+ITERATION    13
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -1.9248D-04  1.1231D-01
+Distance to the next break point =   4.2296D+01
+Distance to the stationary point =   1.7138D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -1.9248D-04  1.1231D-01
+Distance to the stationary point =   1.7138D-03
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.7478D-01  1.2958D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP           13
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:21
+ LINE SEARCH           0  times; norm of step =    2.4291395488498465E-005
+
+At iterate   13    f= -4.17794D+00    |proj g|=  1.85203D-03
+
+ X =  1.0472D-01  9.7671D-01  4.7478D-01  1.2958D+00
+
+ G =  9.4971D+00 -1.3014D+01 -1.8520D-03  2.3572D-04
+
+
+ITERATION    14
+
+---------------- CAUCHY entered-------------------
+ There are            2   breakpoints 
+
+Piece      1 --f1, f2 at start point  -3.4856D-06  2.0325D-03
+Distance to the next break point =   3.0908D+02
+Distance to the stationary point =   1.7149D-03
+
+ GCP found in this segment
+Piece      1 --f1, f2 at start point  -3.4856D-06  2.0325D-03
+Distance to the stationary point =   1.7149D-03
+Cauchy X =  
+      1.0472D-01  9.7671D-01  4.7478D-01  1.2958D+00
+
+---------------- exit CAUCHY----------------------
+
+           0  variables leave;            0  variables enter
+           2  variables are free at GCP           14
+
+----------------SUBSM entered-----------------
+
+
+----------------exit SUBSM --------------------
+
+Simulating... 100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| Time: 0:15:15
+ LINE SEARCH           0  times; norm of step =    6.8835836864899543E-006
+
+At iterate   14    f= -4.17794D+00    |proj g|=  1.97956D-04
+
+ X =  1.0472D-01  9.7671D-01  4.7478D-01  1.2958D+00
+
+ G =  9.4978D+00 -1.3013D+01  1.9796D-04  1.3841D-04
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+    4     14     28     18     1     2   1.980D-04  -4.178D+00
+
+ X =  1.0472D-01  9.7671D-01  4.7478D-01  1.2958D+00
+  F =  -4.1779434465934102     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+
+ Cauchy                time 0.000E+00 seconds.
+ Subspace minimization time 0.000E+00 seconds.
+ Line search           time 2.109E+05 seconds.
+
+ Total User time 2.187E+05 seconds.
+
+25395.518275 seconds (5.35 G allocations: 26.593 TiB, 12.94% gc time, 0.11% compilation time: 5% of which was recompilation)
+(-4.17794344659341, [0.10471975511965977, 0.9767057416522622, 0.47478441326586035, 1.2957970576771842])
