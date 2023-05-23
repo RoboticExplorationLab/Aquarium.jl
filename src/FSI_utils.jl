@@ -3,7 +3,7 @@ Extra utility functions for CFD and FSI
 """
 
 function animate_velocityfield(model::FSIModel, boundary::ImmersedBoundary,
-    T_hist::AbstractVector, x_rollout::VecOrMat{<:AbstractVector},
+    t_hist::AbstractVector, x_rollout::VecOrMat{<:AbstractVector},
     u_hist::VecOrMat{<:AbstractVector}, anime_file::String;
     background_color=:transparent, obj_color=:black, arrowcolor=:blue,
     x_lim=(0, nothing), y_lim=(0, nothing), fontsize=18, framerate=60,
@@ -12,9 +12,9 @@ function animate_velocityfield(model::FSIModel, boundary::ImmersedBoundary,
     kwargs...)
 
     # find frame indices
-    total_frames = (T_hist[end]*timescale*framerate)
-    video_dt = T_hist[end]/total_frames
-    N = length(T_hist)
+    total_frames = (t_hist[end]*timescale*framerate)
+    video_dt = t_hist[end]/total_frames
+    N = length(t_hist)
 
     # define dt
     if model.normalize
@@ -162,7 +162,7 @@ function animate_velocityfield(model::FSIModel, boundary::ImmersedBoundary,
 end
 
 function animate_vorticity(model::FSIModel, boundary::ImmersedBoundary,
-    T_hist::AbstractVector, x_rollout::VecOrMat{<:AbstractVector},
+    t_hist::AbstractVector, x_rollout::VecOrMat{<:AbstractVector},
     u_hist::VecOrMat{<:AbstractVector}, anime_file::String;
     levels=50.0, level_perc=0.3, colormap=:bwr, obj_color=:black,
     x_lim=(0, nothing), y_lim=(0, nothing), fontsize=18, framerate=60,
@@ -170,9 +170,9 @@ function animate_vorticity(model::FSIModel, boundary::ImmersedBoundary,
     display_live=true, kwargs...)
 
     # find frame indices
-    total_frames = (T_hist[end]*timescale*framerate)
-    video_dt = T_hist[end]/total_frames
-    N = length(T_hist)
+    total_frames = (t_hist[end]*timescale*framerate)
+    video_dt = t_hist[end]/total_frames
+    N = length(t_hist)
 
     # define dt
     if model.normalize
@@ -284,7 +284,7 @@ function animate_vorticity(model::FSIModel, boundary::ImmersedBoundary,
     
 end
 
-function animate_vorticity(model::CFDModel, T_hist::AbstractVector,
+function animate_vorticity(model::CFDModel, t_hist::AbstractVector,
     u_hist::VecOrMat{<:AbstractVector}, anime_file::String;
     levels=50.0, colormap=:bwr, level_perc=0.3,
     x_lim=(0, nothing), y_lim=(0, nothing), fontsize=18,
@@ -292,9 +292,9 @@ function animate_vorticity(model::CFDModel, T_hist::AbstractVector,
     resolution=(800, 600), display_live=true)
 
     # find frame indices
-    total_frames = (T_hist[end]*timescale*framerate)
-    video_dt = T_hist[end]/total_frames
-    N = length(T_hist)
+    total_frames = (t_hist[end]*timescale*framerate)
+    video_dt = t_hist[end]/total_frames
+    N = length(t_hist)
 
     # check if unnormalized
     if model.normalize && og_scale
@@ -349,7 +349,7 @@ function animate_vorticity(model::CFDModel, T_hist::AbstractVector,
     knot_point = Observable(1)
     vor_obs = @lift(vorticity($knot_point))
 
-    max_mag = maximum(abs.(vorticity(length(x_rollout))))
+    max_mag = maximum(abs.(vorticity(length(t_hist))))
     min_level = -level_perc*max_mag
     max_level = level_perc*max_mag
 
@@ -388,16 +388,16 @@ function animate_vorticity(model::CFDModel, T_hist::AbstractVector,
 end
 
 function animate_streamlines(model::FSIModel, boundary::ImmersedBoundary,
-    T_hist::AbstractVector, x_rollout::VecOrMat{<:AbstractVector},
+    t_hist::AbstractVector, x_rollout::VecOrMat{<:AbstractVector},
     u_hist::VecOrMat{<:AbstractVector}, anime_file::String;
     density=50.0, linewidth=1.5, colormap=:bwr, obj_color=:black, background_color=:transparent,
     fontsize=18, x_lim=(0, nothing), y_lim=(0, nothing), framerate=60, timescale=1.0,
     og_scale::Bool=true, display_live=true, resolution=(800, 600), kwargs...)
 
     # find frame indices
-    total_frames = (T_hist[end]*timescale*framerate)
-    video_dt = T_hist[end]/total_frames
-    N = length(T_hist)
+    total_frames = (t_hist[end]*timescale*framerate)
+    video_dt = t_hist[end]/total_frames
+    N = length(t_hist)
 
     # define dt
     if model.normalize
@@ -491,16 +491,16 @@ function animate_streamlines(model::FSIModel, boundary::ImmersedBoundary,
     
 end
 
-function animate_streamlines(model::CFDModel, T_hist::AbstractVector,
+function animate_streamlines(model::CFDModel, t_hist::AbstractVector,
     u_hist::VecOrMat{<:AbstractVector}, anime_file::String;
     density=50.0, linewidth=1.5, colormap=:bwr, background_color=:transparent,
-    fontsize=18, x_lim=(0, nothing), y_lim=(0, nothing), framerate=60, 
-    timescale=1.0, og_scale::Bool=true, resolution=(800, 600), display_live=true)
+    fontsize=18, x_lim=(0, nothing), y_lim=(0, nothing), framerate=60, timescale=1.0,
+    og_scale::Bool=true, display_live=true, resolution=(800, 600), kwargs...)
 
     # find frame indices
-    total_frames = (T_hist[end]*timescale*framerate)
-    video_dt = T_hist[end]/total_frames
-    N = length(T_hist)
+    total_frames = (t_hist[end]*timescale*framerate)
+    video_dt = t_hist[end]/total_frames
+    N = length(t_hist)
 
     # define dt
     if model.normalize
@@ -521,12 +521,15 @@ function animate_streamlines(model::CFDModel, T_hist::AbstractVector,
     p = Progress(total_frames, 1, "Creating animation...")
 
     # make meshgrid
+    x_u, y_u = fluidcoord(model; og_scale=og_scale)
+
     function streamlines(i)
 
         u = u_hist[i]
     
         return u_interpolate(fluidgrid(model, u; og_scale=og_scale), [x_u, y_u])
     
+        
     end
     
     # Declare a Makie Observable for storing velocity arrays
@@ -535,14 +538,16 @@ function animate_streamlines(model::CFDModel, T_hist::AbstractVector,
 
     # plot streamlines
     set_theme!(font = "Times New Roman", fontsize=fontsize, Axis = (
-        backgroundcolor = background_color,
-        xgridcolor = :transparent,
-        ygridcolor = :transparent,
-    ))
+            backgroundcolor = background_color,
+            xgridcolor = :transparent,
+            ygridcolor = :transparent,
+        )
+    )
     fig = Figure(resolution = resolution)
     ax = Axis(fig[1,1], xlabel = "x", ylabel = "y")
-    streamplot!(ax, uvn, x_u, y_u, arrow_size=0.02, gridsize=(density, density, density),
-        axis = (xlabel = "x", ylabel = "y"), colormap=colormap, linewidth=linewidth
+    streamplot!(ax, uvn, x_u, y_u, color=:blue,
+        arrow_size=0.02, gridsize=(density, density, density),
+        colormap=colormap, linewidth=linewidth
     )
 
     ax.aspect = DataAspect()
@@ -554,7 +559,7 @@ function animate_streamlines(model::CFDModel, T_hist::AbstractVector,
     end
 
     record(fig, anime_file, frames, framerate=framerate) do i
-
+        
         knot_point[] = i
 
         if display_live
@@ -681,7 +686,7 @@ function plot_vorticity(model::CFDModel, u::AbstractVector;
 
     # plot vorticity contours
     set_theme!(font = "Times New Roman", fontsize=fontsize, Axis = (
-        backgroundcolor = background_color,
+        backgroundcolor = Makie.ColorSchemes.eval(colormap)[end÷2],
         xgridcolor = :transparent,
         ygridcolor = :transparent,
     ))
@@ -689,7 +694,7 @@ function plot_vorticity(model::CFDModel, u::AbstractVector;
     ax = Axis(fig[1,1], xlabel = "x", ylabel = "y")
     contourf!(ax, x_u, y_u, vor_grid,
         levels=range(min_level, max_level, levels),
-        colormap=colormap, color=contour_color
+        colormap=colormap, extendlow = :auto, extendhigh = :auto
     )
 
     ax.aspect = DataAspect()

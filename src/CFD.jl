@@ -9,17 +9,17 @@ struct CFDModel
     L_x::Float64 # fluid environment length (m)
     L_y::Float64 # fluid environment height (m)
     ref_L::Float64 # reference length for normalization
-    ref_U::Float64 # reference length for normalization
+    ref_u::Float64 # reference length for normalization
     ne_x::Int64 # number of elements in x 
     ne_y::Int64 # number of elements in y
     h_x::Float64 # spatial step size in x 
     h_y::Float64 # spatial step size in y
     x::Vector{Float64} # x coordinates of pressure cv
     y::Vector{Float64} # y coordinates of pressure cv
-    U_west_bc::SVector{2, <:AbstractFloat} # boundary conditions west (m/s)
-    U_east_bc::SVector{2, <:AbstractFloat} # boundary conditions east (m/s)
-    U_north_bc::SVector{2, <:AbstractFloat} # boundary conditions north (m/s)
-    U_south_bc::SVector{2, <:AbstractFloat} # boundary conditions south (m/s)
+    u_west_bc::SVector{2, <:AbstractFloat} # boundary conditions west (m/s)
+    u_east_bc::SVector{2, <:AbstractFloat} # boundary conditions east (m/s)
+    u_north_bc::SVector{2, <:AbstractFloat} # boundary conditions north (m/s)
+    u_south_bc::SVector{2, <:AbstractFloat} # boundary conditions south (m/s)
     outflow::SVector{4, Bool} # outflow boundary conditions
     Re::Float64 # Reynolds number
     FVM_ops::FVM_CDS_2D # FVM discretized ops
@@ -28,23 +28,23 @@ end
 
 function CFDModel(dt::AbstractFloat=0.01, ρ::AbstractFloat=997.0, μ::AbstractFloat=8.9e-4,
     L_x::AbstractFloat=1.0, L_y::AbstractFloat=1.0, ref_L::AbstractFloat=1.0,
-    ref_U::AbstractFloat=0.0, ne_x::Int=20, ne_y::Int=20,
-    U_west_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
-    U_east_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
-    U_north_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
-    U_south_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
+    ref_u::AbstractFloat=0.0, ne_x::Int=20, ne_y::Int=20,
+    u_west_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
+    u_east_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
+    u_north_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
+    u_south_bc::SVector{2, <:AbstractFloat}=SA[0.0, 0.0],
     outflow::SVector{4, Bool}=SA[false, false, false, false];
     normalize=true)
     
     # combine boundary conditions
-    bc_vel = [U_west_bc, U_east_bc, U_north_bc, U_south_bc]
+    bc_vel = [u_west_bc, u_east_bc, u_north_bc, u_south_bc]
 
     # calculate spatial stepsizes
     h_x = L_x/ne_x
     h_y = L_y/ne_y
     
     # calculate Reynolds #
-    Re = ref_U*ref_L/(μ/ρ)
+    Re = ref_u*ref_L/(μ/ρ)
 
     # FVM discretization
     FVM_ops = FVM_CDS_2D(SA[ne_x, ne_y], SA[h_x, h_y], bc_vel, outflow)
@@ -54,8 +54,8 @@ function CFDModel(dt::AbstractFloat=0.01, ρ::AbstractFloat=997.0, μ::AbstractF
     y = LinRange(h_y/2, L_y-h_y/2, ne_y)
 
     # create CFDModel
-    model = CFDModel(dt, ρ, μ, L_x, L_y, ref_L, ref_U, ne_x, ne_y, h_x, h_y,
-        x, y, U_west_bc, U_east_bc, U_north_bc, U_south_bc, outflow, Re, 
+    model = CFDModel(dt, ρ, μ, L_x, L_y, ref_L, ref_u, ne_x, ne_y, h_x, h_y,
+        x, y, u_west_bc, u_east_bc, u_north_bc, u_south_bc, outflow, Re, 
         FVM_ops, normalize)
     
     # normalize
@@ -70,7 +70,7 @@ function normalize(model::CFDModel)
 
     # extract reference length and velocity value
     ref_L = model.ref_L
-    ref_U = model.ref_U
+    ref_u = model.ref_u
 
     # define normalized cavity dimensions
     L_x = model.L_x / ref_L
@@ -80,13 +80,13 @@ function normalize(model::CFDModel)
     h_y = L_y / model.ne_y
 
     # define normalized boundary conditions
-    U_west_bc = model.U_west_bc ./ ref_U
-    U_east_bc = model.U_east_bc ./ ref_U
-    U_north_bc = model.U_north_bc ./ ref_U
-    U_south_bc = model.U_south_bc ./ ref_U
+    u_west_bc = model.u_west_bc ./ ref_u
+    u_east_bc = model.u_east_bc ./ ref_u
+    u_north_bc = model.u_north_bc ./ ref_u
+    u_south_bc = model.u_south_bc ./ ref_u
 
     # combine boundary conditions
-    bc_vel = [U_west_bc, U_east_bc, U_north_bc, U_south_bc]
+    bc_vel = [u_west_bc, u_east_bc, u_north_bc, u_south_bc]
 
     # FVM discretization
     FVM_ops = FVM_CDS_2D(SA[model.ne_x, model.ne_y], SA[h_x, h_y],
@@ -97,15 +97,15 @@ function normalize(model::CFDModel)
     y = LinRange(h_y/2, L_y-h_y/2, model.ne_y)
 
     # define normalized time properties
-    dt = model.dt / (ref_L/ref_U)
+    dt = model.dt / (ref_L/ref_u)
 
     # set normalize to true
     normalize = true
 
     # make normalized CFDModel
-    nmodel = CFDModel(dt, model.ρ, model.μ, L_x, L_y, ref_L, ref_U,
-        model.ne_x, model.ne_y, h_x, h_y, x, y, U_west_bc, U_east_bc,
-        U_north_bc, U_south_bc, model.outflow, model.Re, FVM_ops, normalize)
+    nmodel = CFDModel(dt, model.ρ, model.μ, L_x, L_y, ref_L, ref_u,
+        model.ne_x, model.ne_y, h_x, h_y, x, y, u_west_bc, u_east_bc,
+        u_north_bc, u_south_bc, model.outflow, model.Re, FVM_ops, normalize)
     
     return nmodel
 end
@@ -114,7 +114,7 @@ function unnormalize(nmodel::CFDModel)
 
     # extract reference length and velocity value
     ref_L = nmodel.ref_L
-    ref_U = nmodel.ref_U
+    ref_u = nmodel.ref_u
 
     # define normalized cavity dimensions
     L_x = nmodel.L_x * ref_L
@@ -124,13 +124,13 @@ function unnormalize(nmodel::CFDModel)
     h_y = L_y / nmodel.ne_y
 
     # define normalized boundary conditions
-    U_west_bc = nmodel.U_west_bc .* ref_U
-    U_east_bc = nmodel.U_east_bc .* ref_U
-    U_north_bc = nmodel.U_north_bc .* ref_U
-    U_south_bc = nmodel.U_south_bc .* ref_U
+    u_west_bc = nmodel.u_west_bc .* ref_u
+    u_east_bc = nmodel.u_east_bc .* ref_u
+    u_north_bc = nmodel.u_north_bc .* ref_u
+    u_south_bc = nmodel.u_south_bc .* ref_u
 
     # combine boundary conditions
-    bc_vel = [U_west_bc, U_east_bc, U_north_bc, U_south_bc]
+    bc_vel = [u_west_bc, u_east_bc, u_north_bc, u_south_bc]
 
     # FVM discretization
     FVM_ops = FVM_CDS_2D(SA[nmodel.ne_x, nmodel.ne_y], SA[h_x, h_y],
@@ -141,25 +141,25 @@ function unnormalize(nmodel::CFDModel)
     y = LinRange(h_y/2, L_y-h_y/2, nmodel.ne_y)
 
     # define normalized time properties
-    dt = nmodel.dt * (ref_L/ref_U)
+    dt = nmodel.dt * (ref_L/ref_u)
 
     # set normalize to true
     normalize = false
 
     # make normalized CFDModel
-    nmodel = CFDModel(dt, nmodel.ρ, nmodel.μ, L_x, L_y, ref_L, ref_U,
-        nmodel.ne_x, nmodel.ne_y, h_x, h_y, x, y, U_west_bc, U_east_bc,
-        U_north_bc, U_south_bc, nmodel.outflow, nmodel.Re, FVM_ops, normalize)
+    nmodel = CFDModel(dt, nmodel.ρ, nmodel.μ, L_x, L_y, ref_L, ref_u,
+        nmodel.ne_x, nmodel.ne_y, h_x, h_y, x, y, u_west_bc, u_east_bc,
+        u_north_bc, u_south_bc, nmodel.outflow, nmodel.Re, FVM_ops, normalize)
     
     return nmodel
 end
 
 function initialize(model::CFDModel)
     # extract bc
-    U_west_bc = model.U_west_bc
-    U_east_bc = model.U_east_bc
-    U_north_bc = model.U_north_bc
-    U_south_bc = model.U_south_bc
+    u_west_bc = model.u_west_bc
+    u_east_bc = model.u_east_bc
+    u_north_bc = model.u_north_bc
+    u_south_bc = model.u_south_bc
 
     # extract outflow booleans
     outflow_w, outflow_e, outflow_n, outflow_s = model.outflow
@@ -177,26 +177,26 @@ function initialize(model::CFDModel)
     Uk = zeros(nf_u + nf_v)
     pk = zeros(nf_p)
 
-    if U_west_bc == U_east_bc
-        Uk[1:nf_u] .= U_west_bc[1]
-        Uk[nf_u+1:end] .= U_west_bc[2]
-    elseif U_north_bc == U_south_bc
-        Uk[1:nf_u] .= U_north_bc[1]
-        Uk[nf_u+1:end] .= U_north_bc[2]
+    if u_west_bc == u_east_bc
+        Uk[1:nf_u] .= u_west_bc[1]
+        Uk[nf_u+1:end] .= u_west_bc[2]
+    elseif u_north_bc == u_south_bc
+        Uk[1:nf_u] .= u_north_bc[1]
+        Uk[nf_u+1:end] .= u_north_bc[2]
     end
 
     if outflow_e
-        Uk[1:nf_u] .= U_west_bc[1]
-        Uk[nf_u+1:end] .= U_west_bc[2]
+        Uk[1:nf_u] .= u_west_bc[1]
+        Uk[nf_u+1:end] .= u_west_bc[2]
     elseif outflow_w
-        Uk[1:nf_u] .= U_east_bc[1]
-        Uk[nf_u+1:end] .= U_east_bc[2]
+        Uk[1:nf_u] .= u_east_bc[1]
+        Uk[nf_u+1:end] .= u_east_bc[2]
     elseif outflow_n
-        Uk[1:nf_u] .= U_south_bc[1]
-        Uk[nf_u+1:end] .= U_south_bc[2]
+        Uk[1:nf_u] .= u_south_bc[1]
+        Uk[nf_u+1:end] .= u_south_bc[2]
     elseif outflow_s
-        Uk[1:nf_u] .= U_north_bc[1]
-        Uk[nf_u+1:end] .= U_north_bc[2]
+        Uk[1:nf_u] .= u_north_bc[1]
+        Uk[nf_u+1:end] .= u_north_bc[2]
     end
 
     return Uk, pk
@@ -212,7 +212,7 @@ function simulate(model::CFDModel, U::AbstractVector, p::AbstractVector;
     
     # build time history vectors
     if model.normalize
-        dt = model.dt * (model.ref_L / model.ref_U) 
+        dt = model.dt * (model.ref_L / model.ref_u) 
     else
         dt = model.dt 
     end
@@ -232,7 +232,7 @@ function simulate(model::CFDModel, U::AbstractVector, p::AbstractVector;
     end
 
     N = Int((tf-t)/dt + 1)
-    U_hist = [U for _ in 1:N]
+    u_hist = [U for _ in 1:N]
     p_hist = [p for _ in 1:N]
     T_hist = t:dt:tf
 
@@ -252,12 +252,12 @@ function simulate(model::CFDModel, U::AbstractVector, p::AbstractVector;
             verbose=verbose, solver=solver)
 
         # populate time histories
-        U_hist[ind] = deepcopy(Uk)
+        u_hist[ind] = deepcopy(Uk)
         p_hist[ind] = deepcopy(pk)
 
     end
 
-    return T_hist, U_hist, p_hist
+    return T_hist, u_hist, p_hist
 end
 
 function simulate!(model::CFDModel, Un::AbstractVector, pn::AbstractVector,
@@ -268,7 +268,7 @@ function simulate!(model::CFDModel, Un::AbstractVector, pn::AbstractVector,
     pk = deepcopy(p)
     
     if model.normalize
-        dt = model.dt * (model.ref_L / model.ref_U) 
+        dt = model.dt * (model.ref_L / model.ref_u) 
     else
         dt = model.dt
     end
@@ -345,12 +345,12 @@ function discrete_dynamics!(model::CFDModel, Un::AbstractVector, pn::AbstractVec
     dt = model.dt
     Re = model.Re
     
-    nf_U = size(L, 1)
+    nf_u = size(L, 1)
     m_D = size(G, 2)
     
     # define kkt system submatrices
-    A = (1/dt).*(sparse(I, nf_U, nf_U) - (dt/(2*Re)).*L)
-    r = (1/dt).*(sparse(I, nf_U, nf_U) + (dt/(2*Re)).*L)*Uk - 0.5.*N(model, Uk)
+    A = (1/dt).*(sparse(I, nf_u, nf_u) - (dt/(2*Re)).*L)
+    r = (1/dt).*(sparse(I, nf_u, nf_u) + (dt/(2*Re)).*L)*Uk - 0.5.*N(model, Uk)
     bc1 = (1/Re).*L_bc
     bc2 = -D_bc
     

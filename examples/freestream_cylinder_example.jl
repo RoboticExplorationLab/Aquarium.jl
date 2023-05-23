@@ -60,7 +60,7 @@ ne_y = 500
 
 # boundary conditions
 u_∞ = 20.0
-u_∞ = 50.0 # <- uncomment to simulate vortex shedding
+# u_∞ = 50.0 # <- uncomment to simulate vortex shedding
 
 u_west_bc = SA[u_∞, 0.0]
 u_east_bc = SA[u_∞, 0.0]

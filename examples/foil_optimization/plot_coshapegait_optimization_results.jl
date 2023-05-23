@@ -354,7 +354,6 @@ end
 ## Plot Forces
 ##############################
 
-
 set_theme!(font = "Times New Roman", fontsize=plot_fontsize)
 
 n = minimum([length(t_hist_initial), length(t_hist_iter1), length(t_hist_iter5), length(t_hist_optimal)])

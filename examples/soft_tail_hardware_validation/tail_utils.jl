@@ -2,10 +2,8 @@ import Pkg
 Pkg.activate(joinpath(@__DIR__,"..", ".."))
 
 using Aquarium
-using TrajectoryOptimization
 using LinearAlgebra
 using StaticArrays
-using RobotDynamics
 using Rotations
 using JLD2
 using CairoMakie

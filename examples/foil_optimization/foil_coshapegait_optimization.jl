@@ -258,12 +258,12 @@ for i in 1:length(θ_initial)
     bounds[3,i] = copy(θ_b_normalized[i])
 end
 
-# net_thrust_optimal, θ_optimal_normalized = optimizer(obj, g!, x, bounds, m=5, factr=1e7, pgtol=1e-5, iprint=101, maxfun=200, maxiter=200);
+net_thrust_optimal, θ_optimal_normalized = optimizer(obj, g!, x, bounds, m=5, factr=1e7, pgtol=1e-5, iprint=101, maxfun=200, maxiter=200);
 
-# @show(net_thrust_optimal)
-# @show(θ_optimal_normalized)
+@show(net_thrust_optimal)
+@show(θ_optimal_normalized)
 
-@time optimizer(obj, g!, x, bounds, m=5, factr=1e7, pgtol=1e-5, iprint=101, maxfun=200, maxiter=200);
+# @time optimizer(obj, g!, x, bounds, m=5, factr=1e7, pgtol=1e-5, iprint=101, maxfun=200, maxiter=200);
 
 ###############################################
 ## Save Results

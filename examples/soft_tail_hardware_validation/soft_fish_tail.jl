@@ -40,9 +40,9 @@ logocolors = Colors.JULIA_LOGO_COLORS
 ## import tail data
 ##############################
 
-data = load(joinpath(DATADIR, "eth_fish_3hz_force.jld2"))
-F_emp = data["F"]
-T_emp = 0:(1/60):(1/60 * (length(F_emp)-1))
+# data = load(joinpath(DATADIR, "eth_fish_3hz_force.jld2"))
+# F_emp = data["F"]
+# T_emp = 0:(1/60):(1/60 * (length(F_emp)-1))
 
 ##############################
 ## define fluid variables
@@ -175,7 +175,7 @@ animate_velocityfield(normalized_fluid, normalized_boundary,
 ## plot fish tail at 1.45 sec
 ##############################
 
-boundary_1D = SRLFishTail1D(ρ_s, x1, nominal_ds)
+boundary_1D = Aquarium.SRLFishTail1D(ρ_s, x1, nominal_ds)
 x_b_1d = Aquarium.boundary_state(boundary_1D, xk[1])[1:end÷2]
 
 x_1D = x_b_1d[1:boundary_1D.nodes]
@@ -198,17 +198,13 @@ x_fin = x_b[model.joints[end]:model.nodes]
 y_fin = x_b[model.nodes+model.joints[end]:end]
 
 set_theme!(font = "Times New Roman", fontsize=30)
-fig, ax = plot_velocityfield(normalized_fluid, normalized_boundary, xk[1], average(normalized_fluid, uk[1]);
+fig = plot_velocityfield(normalized_fluid, normalized_boundary, xk[1], average(normalized_fluid, uk[1]);
     x_lim=x_lim, y_lim=y_lim, lengthscale=0.0025, arrowcolor=logocolors[3], density = 0.4, obj_color=colorant"grey",
     normalize_arrow=true
 )
-lines!(ax, x_fin, y_fin, color=:black, linewidth=5, grid=false)
-lines!(ax, x_1D, y_1D, color=:black, linewidth=5, grid=false)
-scatter!(ax, x_1D_joints[1:end-2], y_1D_joints[1:end-2], color=:black, markersize=17)
-
-ax.aspect = DataAspect()
-xlims!(ax, x_lim)
-ylims!(ax, y_lim)
+lines!(x_fin, y_fin, color=:black, linewidth=5, grid=false)
+lines!(x_1D, y_1D, color=:black, linewidth=5, grid=false)
+scatter!(x_1D_joints[1:end-2], y_1D_joints[1:end-2], color=:black, markersize=17)
 
 display(fig)
 
@@ -234,13 +230,13 @@ end
 
 start_t = 0.5
 net_Fx_hist_normalized = net_Fx_hist ./ maximum(abs.(net_Fx_hist[10:end]))
-F_emp_trunc = F_emp[1:length(T_emp)] ./ maximum(F_emp)
+# F_emp_trunc = F_emp[1:length(T_emp)] ./ maximum(F_emp)
 
 set_theme!(font = "Times New Roman", fontsize=25)
 fig, ax, sp = lines(t_hist[t_hist .> start_t][1:end-1], net_Fx_hist_normalized[t_hist .> start_t][2:end], color=:black,
     axis = (xlabel = "Time (s)", ylabel = "Thrust"), label = "Aquarium"
 )
-lines!(T_emp[T_emp .> start_t], F_emp_trunc[T_emp .> start_t], color=:red, label = "Empirical")
+# lines!(T_emp[T_emp .> start_t], F_emp_trunc[T_emp .> start_t], color=:red, label = "Empirical")
 axislegend(ax, position = :lt)
 
 xlims!(ax, (minimum(t_hist[t_hist .> start_t]), maximum(t_hist[t_hist .> start_t])))
@@ -261,7 +257,7 @@ hardware_val = @pgf PGFPlotsX.Axis(
         
     },
     PlotInc({lineopts..., color="black"}, Coordinates(t_hist[t_hist .> start_t][1:end-1], net_Fx_hist_normalized[t_hist .> start_t][2:end])),
-    PlotInc({lineopts..., color="red"}, Coordinates(T_emp[T_emp .> start_t], F_emp_trunc[T_emp .> start_t])),
+    # PlotInc({lineopts..., color="red"}, Coordinates(T_emp[T_emp .> start_t], F_emp_trunc[T_emp .> start_t])),
 
     PGFPlotsX.Legend(["Aquarium", "Empirical"])
 )

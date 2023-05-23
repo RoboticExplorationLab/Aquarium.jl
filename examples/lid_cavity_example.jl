@@ -8,10 +8,15 @@ using StaticArrays
 using Makie
 using Makie.GeometryBasics
 using CairoMakie
-using MATLAB
 using JLD2
 using Interpolations
 using Tensors
+
+const DATADIR = expanduser(joinpath("~/Aquarium", "data"))
+const VISDIR = expanduser(joinpath("~/Aquarium", "visualization"))
+
+mkpath(DATADIR)
+mkpath(VISDIR)
 
 ##############################
 ## define fluid environment
@@ -33,14 +38,14 @@ ne_x = 50
 ne_y = 50
 
 # boundary conditions
-U_west_bc = SA[0.0, 0.0]
-U_east_bc = SA[0.0, 0.0]
-U_north_bc = SA[5.0, 0.0]
-U_south_bc = SA[0.0, 0.0]
+u_west_bc = SA[0.0, 0.0]
+u_east_bc = SA[0.0, 0.0]
+u_north_bc = SA[5.0, 0.0]
+u_south_bc = SA[0.0, 0.0]
 
 # normalization references
 ref_L = L_x
-ref_U = U_north_bc[1]
+ref_u = u_north_bc[1]
 
 # outflow
 outflow = SA[false, false, false, false]
@@ -49,61 +54,49 @@ outflow = SA[false, false, false, false]
 ## define CFD model
 ##############################
 
-fluid = CFDModel(dt, ρ, μ, L_x, L_y, ref_L, ref_U, ne_x, ne_y, U_west_bc,
-    U_east_bc, U_north_bc, U_south_bc, outflow; normalize=false)
+fluid = CFDModel(dt, ρ, μ, L_x, L_y, ref_L, ref_u, ne_x, ne_y, u_west_bc,
+    u_east_bc, u_north_bc, u_south_bc, outflow; normalize=false)
 
 ##############################
 ## normalize
 ##############################
 
-normalized_fluid = DiffFSI.normalize(fluid)
+normalized_fluid = Aquarium.normalize(fluid)
 
 ##############################
 ## simulate
 ##############################
 
-Uk, pk = initialize(normalized_fluid)
-T_hist, U_hist, p_hist = simulate(normalized_fluid, Uk, pk; λ=1e-6, tol=1e-6, tf=tf,
+uk, pk = initialize(normalized_fluid)
+t_hist, u_hist, p_hist = simulate(normalized_fluid, uk, pk; λ=1e-6, tol=1e-6, tf=tf,
     iter_refine=false, verbose=false)
 
 ##############################
 ## save data
 ##############################
 
-save_file = joinpath(DiffFSI.DATADIR, "lid_cavity_0to1_sec.jld2")
-jldsave(save_file; normalized_fluid, ref_L, ref_U, T_hist, U_hist, p_hist)
+mkdir(joinpath(DATADIR, "lid_cavity"))
+save_file = joinpath(DATADIR, "lid_cavity", "lid_cavity_0to1_sec.jld2")
+jldsave(save_file; normalized_fluid, ref_L, ref_u, t_hist, u_hist, p_hist)
 
 ##############################
 ## load data
 ##############################
 
-data = load(joinpath(DiffFSI.DATADIR, "lid_cavity_0to1_sec.jld2"))
-T_hist = data["T_hist"]
-U_hist = data["U_hist"]
+data = load(joinpath(DATADIR, "lid_cavity", "lid_cavity_0to1_sec.jld2"))
+t_hist = data["t_hist"]
+u_hist = data["u_hist"]
 p_hist = data["p_hist"]
-Uk = U_hist[end]
+uk = u_hist[end]
 
 ##############################
 ## plot
 ##############################
 
-Uk_avg = average(normalized_fluid, Uk)
+uk_avg = average(normalized_fluid, uk)
 
-plot_streamlines(normalized_fluid, Uk_avg; density=100)
-plot_vorticity(normalized_fluid, Uk_avg; levels=100)
+scene = plot_streamlines(normalized_fluid, uk_avg; density=100)
+display(scene)
 
-##############################
-## create animation
-##############################
-
-anime_file = joinpath(DiffFSI.FIGDIR, "lid_cavity",
-    "lid_cavity_Re100_streamlines.mp4")
-
-animate_streamlines(normalized_fluid, T_hist, U_hist, anime_file;
-    density=100.0, framerate=20, timescale=5.0, display_live=false)
-
-anime_file = joinpath(DiffFSI.FIGDIR, "lid_cavity",
-    "lid_cavity_Re100_vorticity.mp4")
-
-animate_vorticity(normalized_fluid, T_hist[1:20], U_hist[1:20], anime_file;
-    levels=100, framerate=20, timescale=5.0, display_live=false)
+scene = plot_vorticity(normalized_fluid, uk_avg; levels=100)
+display(scene)

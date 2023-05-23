@@ -112,7 +112,7 @@ X = oscillating_motion_x(boundary, [cm_x, cm_y, 0.0], [A, B, ϕ_pitch], α, T)
 mkpath(joinpath(VISDIR, "diamondfoil"))
 
 anime_file = joinpath(VISDIR, "diamondfoil", "diamondfoil_oscillating_$α"*"Hz_$A"*"m_$Bd"*"deg_$ϕd_pitch"*"phase.mp4")
-Aquarium.animate_boundary(boundary, anime_file, X; x_lim=[0.5, 2.75], y_lim=[0.75, 2.25],
+Aquarium.animate_boundary(boundary, anime_file, T, X; x_lim=[0.5, 2.75], y_lim=[0.75, 2.25],
     color=:black, lengthscale=1.5, framerate=30, show_vel=false
 )
 
@@ -121,7 +121,7 @@ Aquarium.animate_boundary(boundary, anime_file, X; x_lim=[0.5, 2.75], y_lim=[0.7
 ###############################################
 
 α_normalized = α * (ref_L / ref_u)
-θ_normalized = normalize_θ(boundary, [A, B, ϕ_pitch], ref_L, ref_u)
+θ_normalized = normalize_θg(boundary, [A, B, ϕ_pitch], ref_L, ref_u)
 normalized_fluid = Aquarium.normalize(fluid)
 normalized_boundary = Aquarium.normalize(boundary, ref_L)
 
