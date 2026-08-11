@@ -42,7 +42,7 @@ jobs:
       # repository yet, so this step is a no-op until one is added. Failing the
       # build over a missing coverage upload would make CI red for a reason that
       # has nothing to do with the code.
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v7
         with:
           files: lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
