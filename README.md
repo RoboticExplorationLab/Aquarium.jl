@@ -9,6 +9,8 @@ no-slip constraints, and solves the coupled system monolithically so that gradie
 the coupling. That makes it usable not just for simulation but for trajectory optimization and
 design optimization of bodies moving in fluid.
 
+For the results of the studies for our RSS 2026 paper, please refer to this repo: https://github.com/RoboticExplorationLab/RoboticSwimmingWithUnifiedFluidRobot
+
 ## Aquarium V2
 
 This is the new open-source, refactored version of Aquarium, based on our accepted RSS paper. It
