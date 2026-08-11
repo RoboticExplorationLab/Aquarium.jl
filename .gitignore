@@ -1,4 +1,12 @@
-/Manifest*.toml
+# Resolved environments. A library declares bounds and lets consumers resolve;
+# pinning a resolution is what applications do. Unanchored so it matches at any
+# depth -- the previous rule was anchored to the repository root, which is why
+# the test and examples manifests were tracked.
+Manifest*.toml
+
+# Editor and OS artifacts
+.vscode/
+.DS_Store
 
 # Ignore calibration images and board
 **/camera_calibration/calibration_images/
