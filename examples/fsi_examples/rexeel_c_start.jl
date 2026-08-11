@@ -301,7 +301,7 @@ vlines!(ax_ctrl, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_ctrl, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_ctrl, position=:rt)
-display(fig_ctrl)
+maybe_display(fig_ctrl)
 maybe_save(joinpath(vis_dir, "control_inputs.png"), fig_ctrl)
 SAVE_FIGURES && println("Control input plot saved.")
 
@@ -381,7 +381,7 @@ vlines!(ax_solid_joints, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_solid_joints, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_solid_joints, position=:rt)
-display(fig_solid_joints)
+maybe_display(fig_solid_joints)
 maybe_save(joinpath(vis_dir, "solid_joint_angles.png"), fig_solid_joints)
 SAVE_FIGURES && println("Solid joint angles plot saved.")
 
@@ -398,7 +398,7 @@ fig_solid, ax_solid = create_aquarium_figure(;
 )
 
 plot_solid_systems!(fig_solid, ax_solid, [rexeel], [solid_midpoint_state_traj[end]])
-display(fig_solid)
+maybe_display(fig_solid)
 
 clear_aquarium_axis!(ax_solid)
 save_path_solid = joinpath(vis_dir, "solid_animation.mp4")
@@ -523,7 +523,7 @@ for i in 1:n_joints
 end
 
 axislegend(ax_joint, position=:rt)
-display(joint_fig)
+maybe_display(joint_fig)
 maybe_save(joinpath(vis_dir, "joint_angles.png"), joint_fig)
 
 #############################################################################################
@@ -570,7 +570,7 @@ lines!(ax_com, com_x, com_y, color=logocolors[1], linewidth=2, label="Center of 
 scatter!(ax_com, [com_x[1]], [com_y[1]], color=logocolors[3], markersize=15, label="Start")
 scatter!(ax_com, [com_x[end]], [com_y[end]], color=logocolors[2], markersize=15, label="End")
 axislegend(ax_com, position=:lb)
-display(com_fig)
+maybe_display(com_fig)
 maybe_save(joinpath(vis_dir, "com_trajectory.png"), com_fig)
 
 # Print displacement
@@ -630,7 +630,7 @@ vlines!(ax_com_vel, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_com_vel, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_com_vel, position=:lt)
-display(com_vel_fig)
+maybe_display(com_vel_fig)
 maybe_save(joinpath(vis_dir, "com_velocity.png"), com_vel_fig)
 
 # Print velocity statistics
@@ -721,7 +721,7 @@ vlines!(ax_orient, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_orient, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_orient, position=:rt)
-display(orient_fig)
+maybe_display(orient_fig)
 maybe_save(joinpath(vis_dir, "swimmer_orientation.png"), orient_fig)
 
 SAVE_FIGURES && println("Orientation plot saved.")
@@ -763,7 +763,7 @@ plot_velocity_field!(fig, ax,
     smooth=true,
     smooth_sigma=3.0
 )
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "rexeel_velocity_final.png"), fig)
 
 # Animate velocity field
@@ -817,7 +817,7 @@ plot_vorticity_field!(fig, ax,
     smooth_sigma=4.0
 )
 
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "rexeel_vorticity_final.png"), fig)
 
 # Animate vorticity field

@@ -118,7 +118,7 @@ energy_fig, energy_ax = create_aquarium_figure(;
 )
 
 lines!(energy_ax, time_traj, total_energy_traj, label="Total Energy", linewidth=2)
-display(energy_fig)
+maybe_display(energy_fig)
 
 # Save energy plot
 energy_save_path = joinpath(vis_dir, "double_pendulum_energy.png")

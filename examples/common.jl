@@ -63,6 +63,15 @@ const SAVE_DATA = SAVE_ALL || _flag("AQUARIUM_SAVE_DATA")
 const SAVE_FIGURES = SAVE_ALL || _flag("AQUARIUM_SAVE_FIGURES")
 const SAVE_ANIMATIONS = SAVE_ALL || _flag("AQUARIUM_SAVE_ANIMATIONS")
 
+# Whether to open figures in a viewer. Defaults to whether the session is
+# interactive: opening a window is what you want from a REPL or an editor cell,
+# and is at best noise when the script is run headlessly -- on a cluster, over
+# SSH, or in CI. That headless case is not hypothetical; see PR #2, whose commit
+# "saved figs for headless VM" was working around exactly this.
+#
+#   AQUARIUM_DISPLAY=true|false   override the interactivity default
+const DISPLAY_FIGURES = haskey(ENV, "AQUARIUM_DISPLAY") ? _flag("AQUARIUM_DISPLAY") : isinteractive()
+
 #############################################################################################
 ## Output locations
 #############################################################################################
@@ -88,7 +97,8 @@ if !(SAVE_DATA || SAVE_FIGURES || SAVE_ANIMATIONS)
     Aquarium examples: artifact output is off, so this run writes nothing.
     Enable it with AQUARIUM_SAVE_ALL=true, or individually via
     AQUARIUM_SAVE_DATA / AQUARIUM_SAVE_FIGURES / AQUARIUM_SAVE_ANIMATIONS.
-    Output would go to $(OUTPUT_ROOT) unless AQUARIUM_OUTPUT redirects it."""
+    Output would go to $(OUTPUT_ROOT) unless AQUARIUM_OUTPUT redirects it.
+    Figures are $(DISPLAY_FIGURES ? "shown" : "not shown") in this session; override with AQUARIUM_DISPLAY."""
 end
 
 #############################################################################################
@@ -126,3 +136,11 @@ function animate_if_enabled(f, args...; kwargs...)
     end
     return f(args...; kwargs...)
 end
+
+"""
+    maybe_display(figure)
+
+Open `figure` in a viewer only when display is enabled. Returns `figure` either
+way, so it can be used inline.
+"""
+maybe_display(figure) = DISPLAY_FIGURES ? display(figure) : figure

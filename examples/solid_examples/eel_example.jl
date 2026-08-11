@@ -146,7 +146,7 @@ aquarium_fig, aquarium_ax = create_aquarium_figure(resolution=resolution,
     fontsize=fontsize
 )
 plot_solid_systems!(aquarium_fig, aquarium_ax, [eel], [midpoint_state_traj[end]])
-display(aquarium_fig)
+maybe_display(aquarium_fig)
 
 # Animate (subsample for faster rendering)
 clear_aquarium_axis!(aquarium_ax)

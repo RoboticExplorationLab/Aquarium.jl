@@ -237,7 +237,7 @@ fig, ax = create_aquarium_figure(;
 lines!(ax, time_traj, drag_coeff_traj, label="Drag Coefficient", linewidth=2, color=:red)
 lines!(ax, time_traj, lift_coeff_traj, label="Lift Coefficient", linewidth=2, color=:blue)
 axislegend(ax, backgroundcolor=:transparent, labelcolor=:white, framecolor=:white)
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "freestream_disc_lift_drag_coefficients_$(floor(Int, reynolds_number))re.png"), fig)
 
 #############################################################################################
@@ -352,7 +352,7 @@ lines!(ax_fit, time_segment[1] .+ time_fit, lift_fitted_curve, linewidth=2, colo
 lines!(ax_fit, time_segment[1] .+ time_fit, drag_fitted_curve, linewidth=2, color=:orange,
        linestyle=:dash, label="Drag Fitted (f=$(round(drag_shedding_frequency, digits=3)) Hz)")
 axislegend(ax_fit, backgroundcolor=:transparent, labelcolor=:white, framecolor=:white)
-display(fig_fit)
+maybe_display(fig_fit)
 maybe_save(joinpath(vis_dir, "freestream_disc_curve_fit_$(floor(Int, reynolds_number))re.png"), fig_fit)
 
 #############################################################################################
@@ -380,7 +380,7 @@ plot_streamlines!(fig, ax,
     bluff_body_state_traj[end], [];
     density=50
 )
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "freestream_disc_streamlines_$(floor(Int, reynolds_number))re.png"), fig)
 
 save_path = joinpath(vis_dir, "freestream_disc_streamlines_animation_$(floor(Int, reynolds_number))re.mp4")
@@ -418,7 +418,7 @@ plot_vorticity_field!(fig, ax,
     min_threshold=-500.0,
     max_threshold=500.0
 )
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "freestream_disc_vorticity_$(floor(Int, reynolds_number))re.png"), fig)
 
 save_path = joinpath(vis_dir, "freestream_disc_vorticity_animation_$(floor(Int, reynolds_number))re.mp4")
@@ -455,7 +455,7 @@ plot_pressure_field!(fig, ax,
     fluid_pressure_traj[end],
     bluff_body_state, [];
 )
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "freestream_disc_pressure_animation_$(floor(Int, reynolds_number))re.png"), fig)
 
 save_path = joinpath(vis_dir, "freestream_disc_pressure_animation_$(floor(Int, reynolds_number))re.mp4")
@@ -488,7 +488,7 @@ fig, ax = create_aquarium_figure(;
     use_data_aspect=false
 )
 lines!(ax, time_traj, fluid_energy_traj, label="Fluid Energy", linewidth=2)
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "freestream_disc_energy_$(floor(Int, reynolds_number))re.png"), fig)
 
 #############################################################################################
@@ -510,7 +510,7 @@ fig, ax = create_aquarium_figure(;
     use_data_aspect=false
 )
 lines!(ax, time_traj, fluid_pressure_norm_traj, label="Pressure Norm", linewidth=2)
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "freestream_disc_pressure_norm_$(floor(Int, reynolds_number))re.png"), fig)
 
 println("\n" * "="^80)

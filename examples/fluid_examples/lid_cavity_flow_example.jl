@@ -135,7 +135,7 @@ plot_streamlines!(fig, ax,
     [], [];
     density=50
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_streamlines_animation.mp4")
 animate_if_enabled(animate_streamlines, fig, ax,
@@ -172,7 +172,7 @@ plot_vorticity_field!(fig, ax,
     min_threshold=-5.0,
     max_threshold=5.0
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_vorticity_animation.mp4")
 animate_if_enabled(animate_vorticity_field, fig, ax,
@@ -216,7 +216,7 @@ plot_velocity_field!(fig, ax,
     tipcolor=logocolors.blue,
     shaftcolor=logocolors.blue,
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_velocity_field_animation.mp4")
 animate_if_enabled(animate_velocity_field, fig, ax,
@@ -258,7 +258,7 @@ plot_pressure_field!(fig, ax,
     [], [];
 
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_pressure_field_animation.mp4")
 animate_if_enabled(animate_pressure_field, fig, ax,

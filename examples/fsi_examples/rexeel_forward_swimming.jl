@@ -271,7 +271,7 @@ end
 vlines!(ax_ctrl, [T_ramp], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_ctrl, position=:rt)
-display(fig_ctrl)
+maybe_display(fig_ctrl)
 maybe_save(joinpath(vis_dir, "control_inputs.png"), fig_ctrl)
 SAVE_FIGURES && println("Control input plot saved.")
 
@@ -350,7 +350,7 @@ end
 vlines!(ax_solid_joints, [T_ramp], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_solid_joints, position=:rt)
-display(fig_solid_joints)
+maybe_display(fig_solid_joints)
 maybe_save(joinpath(vis_dir, "solid_joint_angles.png"), fig_solid_joints)
 SAVE_FIGURES && println("Solid joint angles plot saved.")
 
@@ -367,7 +367,7 @@ fig_solid, ax_solid = create_aquarium_figure(;
 )
 
 plot_solid_systems!(fig_solid, ax_solid, [rexeel], [solid_midpoint_state_traj[end]])
-display(fig_solid)
+maybe_display(fig_solid)
 
 clear_aquarium_axis!(ax_solid)
 save_path_solid = joinpath(vis_dir, "solid_animation.mp4")
@@ -492,7 +492,7 @@ for i in 1:n_joints
 end
 
 axislegend(ax_joint, position=:rt)
-display(joint_fig)
+maybe_display(joint_fig)
 maybe_save(joinpath(vis_dir, "joint_angles.png"), joint_fig)
 
 #############################################################################################
@@ -532,7 +532,7 @@ lines!(ax_com, com_x, com_y, color=logocolors[1], linewidth=2, label="Center of 
 scatter!(ax_com, [com_x[1]], [com_y[1]], color=logocolors[3], markersize=15, label="Start")
 scatter!(ax_com, [com_x[end]], [com_y[end]], color=logocolors[2], markersize=15, label="End")
 axislegend(ax_com, position=:lb)
-display(com_fig)
+maybe_display(com_fig)
 maybe_save(joinpath(vis_dir, "com_trajectory.png"), com_fig)
 
 # Print displacement
@@ -577,7 +577,7 @@ lines!(ax_vel, time_traj, com_speed, color=logocolors[3], linewidth=2, label="sp
 vlines!(ax_vel, [T_ramp], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_vel, position=:rt)
-display(vel_fig)
+maybe_display(vel_fig)
 maybe_save(joinpath(vis_dir, "com_velocity.png"), vel_fig)
 
 println("Max COM speed: $(maximum(com_speed)) cm/s")
@@ -616,7 +616,7 @@ plot_velocity_field!(fig, ax,
     smooth=true,
     smooth_sigma=3.0
 )
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "rexeel_velocity_final.png"), fig)
 
 # Animate velocity field
@@ -670,7 +670,7 @@ plot_vorticity_field!(fig, ax,
     smooth_sigma=4.0
 )
 
-display(fig)
+maybe_display(fig)
 maybe_save(joinpath(vis_dir, "rexeel_vorticity_final.png"), fig)
 
 # Animate vorticity field

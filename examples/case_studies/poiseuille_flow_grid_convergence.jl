@@ -167,7 +167,7 @@ plot_streamlines!(fig, ax,
     fluid_velocity_traj_300x100[end],
     [], []
 )
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## Plot vorticity
@@ -191,7 +191,7 @@ plot_vorticity_field!(fig, ax,
     min_threshold=-10.0,
     max_threshold=10.0
 )
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## Plot velocity field
@@ -220,7 +220,7 @@ plot_velocity_field!(fig, ax,
     tipcolor=logocolors.blue,
     shaftcolor=logocolors.blue,
 )
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## Plot pressure field
@@ -242,7 +242,7 @@ plot_pressure_field!(fig, ax,
     [], [];
 
 )
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## plot energy over time
@@ -261,7 +261,7 @@ fig, ax = create_aquarium_figure(;
     use_data_aspect=false
 )
 lines!(ax, 0:dt:tf, fluid_energy_traj)
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## plot pressure norms over time
@@ -277,7 +277,7 @@ fig, ax = create_aquarium_figure(;
     use_data_aspect=false
 )
 lines!(ax, dt:dt:tf, fluid_pressure_norm_traj, label="Pressure (Fluid)")
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## plot velocity profiles
@@ -325,7 +325,7 @@ scatter!(ax, fluid_velocity_x_profile_300x100[2:end-1],
 xlims!(ax, -0.01, 1.1*boundary_velocity[1])
 
 axislegend(ax, backgroundcolor=:transparent, labelcolor=:black, framecolor=:black)
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## Make tikz plot of velocity profiles

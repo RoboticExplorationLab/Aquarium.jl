@@ -50,6 +50,10 @@
             # No example reads back data it wrote in the same run. That round trip
             # only worked because saving was unconditional.
             @test !occursin(r"\bload\(", source)
+
+            # Figures are opened through the display guard, so a headless run --
+            # cluster, CI, over SSH -- does not try to open a viewer.
+            @test !occursin(r"(?<!maybe_)\bdisplay\(", source)
         end
     end
 end
