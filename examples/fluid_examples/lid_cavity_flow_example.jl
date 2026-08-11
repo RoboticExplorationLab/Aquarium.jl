@@ -1,7 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
-Pkg.develop(path=joinpath(@__DIR__,"..",".."))
-Pkg.instantiate()
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -11,8 +8,7 @@ using Colors
 using JLD2
 using Test
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "lid_cavity_flow")
-mkpath(vis_dir)
+vis_dir = visualization_dir("lid_cavity_flow")
 
 #############################################################################################
 ## Plot parameters
@@ -81,7 +77,7 @@ fluid_sim_data = simulate_fluid(fluid_env, fluid_state_0, final_time;
     lazy=true, verbose=false
 )
 
-save_file = joinpath(Aquarium.DATA_DIR, "lid_cavity_flow.jld2")
+save_file = data_file("lid_cavity_flow.jld2")
 jldsave(save_file;
     fluid_sim_data
 );
@@ -90,7 +86,7 @@ jldsave(save_file;
 ## Import sim results
 #############################################################################################
 
-data = load(joinpath(Aquarium.DATA_DIR, "lid_cavity_flow.jld2"))
+data = load(data_file("lid_cavity_flow.jld2"))
 fluid_sim_data = data["fluid_sim_data"]
 t_traj = fluid_sim_data[:t_traj]
 fluid_velocity_traj = fluid_sim_data[:fluid_velocity_traj]

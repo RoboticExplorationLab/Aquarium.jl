@@ -1,5 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -10,8 +9,7 @@ using JLD2
 using Test
 using Random
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "rexeel_c_start")
-mkpath(vis_dir)
+vis_dir = visualization_dir("rexeel_c_start")
 
 #############################################################################################
 ## Plot params
@@ -460,7 +458,7 @@ trajectories = simulate_aquarium(
 println("\nSimulation complete!")
 
 # Save simulation data
-save_file = joinpath(Aquarium.DATA_DIR, "rexeel_c_start.jld2")
+save_file = data_file("rexeel_c_start.jld2")
 jldsave(save_file; trajectories)
 println("Results saved to: ", save_file)
 println()
@@ -471,7 +469,7 @@ println()
 
 # Load simulation data
 
-load_file = joinpath(Aquarium.DATA_DIR, "rexeel_c_start.jld2")
+load_file = data_file("rexeel_c_start.jld2")
 data = load(load_file)
 trajectories = data["trajectories"]
 

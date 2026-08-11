@@ -1,7 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
-Pkg.develop(path=joinpath(@__DIR__,"..",".."))
-Pkg.instantiate()
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -10,8 +7,7 @@ using Colors
 using JLD2
 using LsqFit
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "freestream_disc")
-mkpath(vis_dir)
+vis_dir = visualization_dir("freestream_disc")
 
 #############################################################################################
 ## Plot parameters
@@ -156,7 +152,7 @@ trajectories = simulate_aquarium(
 println("\nSimulation complete!")
 
 # Save simulation data
-save_file = joinpath(Aquarium.DATA_DIR, "freestream_disc_$(floor(Int, reynolds_number))re.jld2")
+save_file = data_file("freestream_disc_$(floor(Int, reynolds_number))re.jld2")
 jldsave(save_file; tank, trajectories)
 println("\nResults saved to: ", save_file)
 
@@ -164,7 +160,7 @@ println("\nResults saved to: ", save_file)
 ## Load sim results
 #############################################################################################
 
-save_file = joinpath(Aquarium.DATA_DIR, "freestream_disc_$(floor(Int, reynolds_number))re.jld2")
+save_file = data_file("freestream_disc_$(floor(Int, reynolds_number))re.jld2")
 data = load(save_file)
 
 tank = data[:"tank"]
