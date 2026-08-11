@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/RoboticExplorationLab/Aquarium.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/RoboticExplorationLab/Aquarium.jl/actions/workflows/CI.yml?query=branch%3Amain)
 
-A fully differentiable fluid-structure interaction solver for robotics applications.
+A differentiable fluid-structure interaction solver for robotics applications.
 
 Aquarium couples a 2D finite-volume fluid to multi-rigid-body systems through immersed-boundary
 no-slip constraints, and solves the coupled system monolithically so that gradients flow through
