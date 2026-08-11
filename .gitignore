@@ -4,6 +4,10 @@
 # the test and examples manifests were tracked.
 Manifest*.toml
 
+# Example output. The library writes nothing itself; examples/common.jl puts
+# figures and data here unless AQUARIUM_OUTPUT redirects them.
+examples/output/
+
 # Editor and OS artifacts
 .vscode/
 .DS_Store

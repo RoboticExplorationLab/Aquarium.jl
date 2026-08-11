@@ -1,5 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -9,8 +8,7 @@ using Colors
 using JLD2
 using Test
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "double_pendulum")
-mkpath(vis_dir)
+vis_dir = visualization_dir("double_pendulum")
 
 #############################################################################################
 ## Plot params

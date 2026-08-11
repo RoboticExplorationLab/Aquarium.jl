@@ -1,7 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
-Pkg.develop(path=joinpath(@__DIR__,"..",".."))
-Pkg.instantiate()
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -13,8 +10,7 @@ using JLD2
 using Test
 using PGFPlotsX
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "pendulum")
-mkpath(vis_dir)
+vis_dir = visualization_dir("pendulum")
 
 #############################################################################################
 ## Helper functions for simulating pendulum with implicit-midpoint time integrator

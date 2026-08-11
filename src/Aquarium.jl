@@ -127,15 +127,10 @@ include("visualization/aquarium_animations.jl")
 ## Export all functions
 @exportAll()
 
-## Define directory paths
-const EXAMPLES_DIR = joinpath(@__DIR__, "..", "examples")
-const TEST_DIR = joinpath(@__DIR__, "..", "test")
-const VIS_DIR = expanduser(joinpath("~/aquarium", "visualization"))
-const DATA_DIR = expanduser(joinpath("~/aquarium", "data"))
-
-mkpath(EXAMPLES_DIR)
-mkpath(TEST_DIR)
-mkpath(VIS_DIR)
-mkpath(DATA_DIR)
+# Aquarium owns no filesystem paths and creates no directories on load. It
+# returns figures and data; where they go is the caller's decision. See
+# docs/adr/0003-library-owns-no-filesystem-paths.md -- in particular, two of the
+# directory constants that used to live here targeted the package's own source
+# tree, which is read-only for any registry install.
 
 end

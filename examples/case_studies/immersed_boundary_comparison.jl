@@ -1,5 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -7,10 +6,8 @@ using Aquarium.CairoMakie
 using Colors
 using JLD2
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "case_studies/immersed_boundary_comparison")
-data_dir = joinpath(Aquarium.DATA_DIR, "case_studies/immersed_boundary_comparison")
-mkpath(vis_dir)
-mkpath(data_dir)
+vis_dir = visualization_dir("case_studies/immersed_boundary_comparison")
+case_data_dir = data_dir("case_studies/immersed_boundary_comparison")
 
 #############################################################################################
 ## Parameters
@@ -132,7 +129,7 @@ for case in cases
     )
 
     # Save
-    save_file = joinpath(data_dir, "$(case.label).jld2")
+    save_file = joinpath(case_data_dir, "$(case.label).jld2")
     jldsave(save_file; tank, trajectories, bluff_body_state)
     println("Saved: $save_file")
 end
@@ -145,7 +142,7 @@ for case in cases
     println("\nAnimating: $(case.label)")
 
     # Load
-    save_file = joinpath(data_dir, "$(case.label).jld2")
+    save_file = joinpath(case_data_dir, "$(case.label).jld2")
     data = load(save_file)
     tank = data["tank"]
     trajectories = data["trajectories"]

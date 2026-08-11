@@ -1,7 +1,4 @@
-import Pkg
-Pkg.activate(joinpath(@__DIR__,".."))
-Pkg.develop(path=joinpath(@__DIR__,"..",".."))
-Pkg.instantiate()
+include(joinpath(@__DIR__, "..", "common.jl"))
 
 using Aquarium
 using Aquarium.LinearAlgebra
@@ -11,8 +8,7 @@ using JLD2
 using Test
 using PGFPlotsX
 
-vis_dir = joinpath(Aquarium.VIS_DIR, "poiseuille_flow")
-mkpath(vis_dir)
+vis_dir = visualization_dir("poiseuille_flow")
 
 #############################################################################################
 ## Plot parameters
@@ -106,7 +102,7 @@ fluid_sim_data_300x100 = simulate_fluid(fluid_env_300x100, fluid_velocity_0_300x
     ilu_drop_tolerance=1e-2, dual_regularization=1e-6, verbose=false
 )
 
-save_file = joinpath(Aquarium.DATA_DIR, "poiseuille_flow.jld2")
+save_file = data_file("poiseuille_flow.jld2")
 jldsave(save_file;
     fluid_sim_data_30x10,
     fluid_sim_data_150x50,
@@ -117,7 +113,7 @@ jldsave(save_file;
 ## Import sim results
 #############################################################################################
 
-data = load(joinpath(Aquarium.DATA_DIR, "poiseuille_flow.jld2"))
+data = load(data_file("poiseuille_flow.jld2"))
 fluid_sim_data_30x10 = data["fluid_sim_data_30x10"]
 fluid_sim_data_150x50 = data["fluid_sim_data_150x50"]
 fluid_sim_data_300x100 = data["fluid_sim_data_300x100"]
