@@ -161,8 +161,7 @@ println()
 # Number of joints (n_links - 1 = 4 joints for 5-link eel)
 n_joints_ctrl = n_links - 1
 
-# B_prep = deg2rad.([36, 36, 36, 36, 36]) # [rad] per joint
-B_prep = deg2rad.([17.175683961250282, 17.77561203549385, 19.40557132265484, 23.105955851639145, 36.0])  # Example - update with actual values
+B_prep = deg2rad.([17.0, 18.0, 20.0, 24.0, 36.0])  # Example - update with actual values
 
 # Undulation amplitude during propulsive phase (constant for all joints)
 K_prop = deg2rad(25.0)  # [rad]
