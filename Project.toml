@@ -1,7 +1,7 @@
 name = "Aquarium"
 uuid = "573b866c-df5d-4d04-a64d-e63f6171118b"
 authors = ["JJ Lee <jeonghun.jj.lee@gmail.com> and contributors"]
-version = "1.0.0-DEV"
+version = "0.2.0"
 
 [deps]
 AMD = "14f7f29c-3bd6-536c-9a0b-7339e30b5a3e"
