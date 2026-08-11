@@ -295,7 +295,16 @@ end
     v = vcat(2 .* ones(grid.n_vx), 1.5 .* ones(grid.n_vy))
 
     @test size(divergence) == (grid.n_cell-4, grid.n_vx + grid.n_vy)
-    @test divergence * v == zeros(grid.n_cell-4)
+
+    # v is uniform and therefore divergence-free, so this is mathematically zero.
+    # It is computed as a sparse matrix-vector product summing four terms of order
+    # v/dx ~ 1, so the result carries roundoff of order eps() -- whether it lands
+    # on exact zero depends on how the arithmetic is associated. It does on Julia
+    # 1.10 and does not on 1.13, where the observed residual is 2.8e-17, itself an
+    # order of magnitude below eps(). A genuine sign or scaling error in the
+    # operator would be order 1, so 100*eps() leaves ~13 orders of margin for
+    # catching real defects while tolerating roundoff.
+    @test isapprox(divergence * v, zeros(grid.n_cell-4); atol = 100 * eps(Float64))
 end
 
 @testitem "3×4 Grid Divergence" begin
@@ -309,5 +318,7 @@ end
     v = vcat(2 .* ones(grid.n_vx), 1.5 .* ones(grid.n_vy))
 
     @test size(divergence) == (grid.n_cell-4, grid.n_vx + grid.n_vy)
-    @test divergence * v == zeros(grid.n_cell-4)
+
+    # See the 4x3 case above. Observed residual on Julia 1.13 is 5.6e-17.
+    @test isapprox(divergence * v, zeros(grid.n_cell-4); atol = 100 * eps(Float64))
 end
