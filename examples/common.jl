@@ -4,8 +4,8 @@
 #
 #     include(joinpath(@__DIR__, "..", "common.jl"))
 #
-# which activates the examples environment and provides the output-directory
-# helpers below.
+# which activates the examples environment and provides the output helpers and
+# artifact flags below.
 #
 # Output location is the caller's concern, not the library's: Aquarium returns
 # figures and data and writes nothing itself (see docs/adr/0003). These helpers
@@ -30,6 +30,43 @@ end
 
 Pkg.instantiate()
 
+# `save` and `jldsave` are deliberately NOT imported here.
+#
+# This file is included into Main, so an explicit `using FileIO: save` would take
+# precedence over the `save` that each example gets from `using Aquarium.CairoMakie`
+# -- and the figures being written are Makie figures. Julia resolves globals in
+# function bodies at call time, so leaving these unimported means the writers below
+# pick up whatever `save`/`jldsave` the including script has in scope, which is the
+# same binding the examples used before these wrappers existed.
+
+#############################################################################################
+## Artifact flags
+#############################################################################################
+
+# Examples compute and plot by default and write nothing at all. Saving is opt-in
+# because the artifacts are expensive in different ways: animations need a video
+# encoder and dominate runtime, and the data files are large. The code to produce
+# them is a real part of what the examples demonstrate, so it stays -- it just
+# stops being mandatory.
+#
+#   AQUARIUM_SAVE_DATA=true        .jld2 simulation data
+#   AQUARIUM_SAVE_FIGURES=true     static figures
+#   AQUARIUM_SAVE_ANIMATIONS=true  animations
+#   AQUARIUM_SAVE_ALL=true         all three
+#
+# Flags are read once, here, so a single run is internally consistent.
+
+_flag(name) = lowercase(strip(get(ENV, name, "false"))) in ("1", "true", "yes", "on")
+
+const SAVE_ALL = _flag("AQUARIUM_SAVE_ALL")
+const SAVE_DATA = SAVE_ALL || _flag("AQUARIUM_SAVE_DATA")
+const SAVE_FIGURES = SAVE_ALL || _flag("AQUARIUM_SAVE_FIGURES")
+const SAVE_ANIMATIONS = SAVE_ALL || _flag("AQUARIUM_SAVE_ANIMATIONS")
+
+#############################################################################################
+## Output locations
+#############################################################################################
+
 """
 Root directory for everything the examples write.
 
@@ -38,29 +75,54 @@ which is ignored by version control.
 """
 const OUTPUT_ROOT = get(ENV, "AQUARIUM_OUTPUT", joinpath(@__DIR__, "output"))
 
-_ensure_dir(path) = (mkpath(path); path)
+# These compute paths and deliberately do NOT create anything. Directories are
+# made only when something is actually written, by the helpers below -- otherwise
+# a default run would still litter the filesystem with empty directories.
+visualization_dir(parts...) = joinpath(OUTPUT_ROOT, "visualization", parts...)
+data_dir(parts...) = joinpath(OUTPUT_ROOT, "data", parts...)
+data_file(parts...) = joinpath(OUTPUT_ROOT, "data", parts...)
+
+# Announced after OUTPUT_ROOT exists, so the message can name the location.
+if !(SAVE_DATA || SAVE_FIGURES || SAVE_ANIMATIONS)
+    @info """
+    Aquarium examples: artifact output is off, so this run writes nothing.
+    Enable it with AQUARIUM_SAVE_ALL=true, or individually via
+    AQUARIUM_SAVE_DATA / AQUARIUM_SAVE_FIGURES / AQUARIUM_SAVE_ANIMATIONS.
+    Output would go to $(OUTPUT_ROOT) unless AQUARIUM_OUTPUT redirects it."""
+end
+
+#############################################################################################
+## Guarded writers
+#############################################################################################
+
+_prepare(path) = (mkpath(dirname(path)); path)
 
 """
-    visualization_dir(parts...)
+    maybe_save(path, figure)
 
-Directory for figures and animations, created if absent.
+Save `figure` only when figure output is enabled. Returns `path` either way, so
+callers can print or reuse it regardless.
 """
-visualization_dir(parts...) = _ensure_dir(joinpath(OUTPUT_ROOT, "visualization", parts...))
-
-"""
-    data_dir(parts...)
-
-Directory for saved simulation data, created if absent.
-"""
-data_dir(parts...) = _ensure_dir(joinpath(OUTPUT_ROOT, "data", parts...))
+maybe_save(path, figure) = SAVE_FIGURES ? save(_prepare(path), figure) : path
 
 """
-    data_file(parts...)
+    maybe_jldsave(path; data...)
 
-Path to a file under the data directory. The containing directory is created;
-the file itself is not.
+Write `data` only when data output is enabled. Returns `path` either way.
 """
-function data_file(parts...)
-    _ensure_dir(joinpath(OUTPUT_ROOT, "data", parts[1:end-1]...))
-    return joinpath(OUTPUT_ROOT, "data", parts...)
+maybe_jldsave(path; data...) = SAVE_DATA ? jldsave(_prepare(path); data...) : path
+
+"""
+    animate_if_enabled(f, args...; kwargs...)
+
+Call animation function `f` only when animation output is enabled. Animations are
+the slowest thing the examples do and need a video encoder, so they are off by
+default.
+"""
+function animate_if_enabled(f, args...; kwargs...)
+    SAVE_ANIMATIONS || return nothing
+    for arg in args
+        arg isa AbstractString && startswith(arg, OUTPUT_ROOT) && _prepare(arg)
+    end
+    return f(args...; kwargs...)
 end

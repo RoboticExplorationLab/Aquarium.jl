@@ -80,6 +80,8 @@ end
 ## Run simulations
 #############################################################################################
 
+results = Dict{String,Any}()
+
 cases = [
     (ib_method = :original,  n_nodes = n_nodes_fine,   label = "original_fine"),
     (ib_method = :original,  n_nodes = n_nodes_coarse, label = "original_coarse"),
@@ -130,8 +132,10 @@ for case in cases
 
     # Save
     save_file = joinpath(case_data_dir, "$(case.label).jld2")
-    jldsave(save_file; tank, trajectories, bluff_body_state)
-    println("Saved: $save_file")
+    maybe_jldsave(save_file; tank, trajectories, bluff_body_state)
+    # Kept in memory as well, so the animation loop below does not depend on
+    # data having been written -- saving is opt-in.
+    results[case.label] = (; tank, trajectories, bluff_body_state)
 end
 
 #############################################################################################
@@ -141,12 +145,10 @@ end
 for case in cases
     println("\nAnimating: $(case.label)")
 
-    # Load
-    save_file = joinpath(case_data_dir, "$(case.label).jld2")
-    data = load(save_file)
-    tank = data["tank"]
-    trajectories = data["trajectories"]
-    bluff_body_state = data["bluff_body_state"]
+    result = results[case.label]
+    tank = result.tank
+    trajectories = result.trajectories
+    bluff_body_state = result.bluff_body_state
 
     fluid_env = tank.fluid
     bluff_body = tank.bluff_body
@@ -169,7 +171,7 @@ for case in cases
 
     # Animate (10s video: timescale = final_time / 10)
     save_path = joinpath(vis_dir, "$(case.label)_streamlines.mp4")
-    animate_streamlines(
+    animate_if_enabled(animate_streamlines, 
         fig, ax,
         fluid_env,
         bluff_body, nothing,
@@ -182,7 +184,7 @@ for case in cases
         framerate = 30,
         timescale = final_time / 10.0,
     )
-    println("Saved: $save_path")
+    SAVE_ANIMATIONS && println("Saved: $save_path")
 
     # Final-state SVG: white background, black axes/labels, Times New Roman
     # Flip segment/node colors relative to the animation.
@@ -210,10 +212,10 @@ for case in cases
         density = 20,
     )
     svg_path = joinpath(vis_dir, "$(case.label)_final.svg")
-    save(svg_path, fig_svg)
-    println("Saved: $svg_path")
+    maybe_save(svg_path, fig_svg)
+    SAVE_FIGURES && println("Saved: $svg_path")
 end
 
 println("\n" * "="^80)
-println("All done! Animations saved to: $vis_dir")
+SAVE_ANIMATIONS && println("All done! Animations saved to: $vis_dir")
 println("="^80)

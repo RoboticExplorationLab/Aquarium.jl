@@ -172,7 +172,7 @@ display(fig)
 
 clear_aquarium_axis!(ax)
 save_path = joinpath(vis_dir, "rexeel_animation.mp4")
-animate_solid_systems(fig, ax,
+animate_if_enabled(animate_solid_systems, fig, ax,
     [rexeel],
     time_traj,
     [midpoint_state_traj],

@@ -103,7 +103,7 @@ fluid_sim_data_300x100 = simulate_fluid(fluid_env_300x100, fluid_velocity_0_300x
 )
 
 save_file = data_file("poiseuille_flow.jld2")
-jldsave(save_file;
+maybe_jldsave(save_file;
     fluid_sim_data_30x10,
     fluid_sim_data_150x50,
     fluid_sim_data_300x100
@@ -113,10 +113,7 @@ jldsave(save_file;
 ## Import sim results
 #############################################################################################
 
-data = load(data_file("poiseuille_flow.jld2"))
-fluid_sim_data_30x10 = data["fluid_sim_data_30x10"]
-fluid_sim_data_150x50 = data["fluid_sim_data_150x50"]
-fluid_sim_data_300x100 = data["fluid_sim_data_300x100"]
+# The three fluid_sim_data_* values are already in memory from above.
 
 t_traj_30x10 = fluid_sim_data_30x10[:t_traj]
 fluid_velocity_traj_30x10 = fluid_sim_data_30x10[:fluid_velocity_traj]
