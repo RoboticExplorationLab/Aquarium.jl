@@ -74,8 +74,9 @@ t_hist, u_hist, p_hist = simulate(normalized_fluid, uk, pk; λ=1e-6, tol=1e-6, t
 ##############################
 ## save data
 ##############################
-
-mkdir(joinpath(DATADIR, "lid_cavity"))
+if !isdir(joinpath(DATADIR, "lid_cavity"))
+    mkdir(joinpath(DATADIR, "lid_cavity"))
+end
 save_file = joinpath(DATADIR, "lid_cavity", "lid_cavity_0to1_sec.jld2")
 jldsave(save_file; normalized_fluid, ref_L, ref_u, t_hist, u_hist, p_hist)
 
@@ -95,8 +96,8 @@ uk = u_hist[end]
 
 uk_avg = average(normalized_fluid, uk)
 
-scene = plot_streamlines(normalized_fluid, uk_avg; density=100)
-display(scene)
+fig1 = plot_streamlines(normalized_fluid, uk_avg; density=100)
+save(joinpath(VISDIR, "lid_streamlines.png"), fig1)
 
-scene = plot_vorticity(normalized_fluid, uk_avg; levels=100)
-display(scene)
+fig2 = plot_vorticity(normalized_fluid, uk_avg; levels=100)
+save(joinpath(VISDIR, "lid_vorticity.png"), fig2)

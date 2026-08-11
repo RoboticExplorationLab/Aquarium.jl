@@ -904,7 +904,7 @@ function plot_streamlines(model::CFDModel, u::AbstractVector;
     fig = Figure(resolution = resolution)
     ax = Axis(fig[1,1], xlabel = "x", ylabel = "y")
     streamplot!(ax, lift(a -> u_int(to_value(a)),uvn),
-        x_u, y_u, color=:blue, arrow_size=0.02,
+        x_u, y_u, arrow_size=0.02,
         gridsize=(density, density, density),
         colormap=colormap, linewidth=linewidth
     )
@@ -923,7 +923,7 @@ function u_interpolate(uv, xs)
     f_v=scale(interpolate(uv[2]',BSpline(Quadratic(Reflect(OnCell())))), xs[1], xs[2])
 
     function velocity(x,y)
-        Point2f0(f_u(x,y),f_v(x,y))
+        Point2f(f_u(x,y),f_v(x,y))
     end
 
     return velocity

@@ -2,6 +2,8 @@
 Strongly-coupled FSI
 """
 
+using SharedArrays
+
 struct FSIModel
     dt::Float64 # time step
     ρ::Float64 # fluid density (kg/m^3)
