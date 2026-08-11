@@ -117,7 +117,7 @@ plot_solid_systems!(fig, ax, [pendulum], [midpoint_state_traj[end]])
 
 clear_aquarium_axis!(ax)
 save_path = joinpath(vis_dir, "pendulum_animation.mp4")
-animate_solid_systems(fig, ax,
+animate_if_enabled(animate_solid_systems, fig, ax,
     [pendulum],
     time_traj,
     [midpoint_state_traj],

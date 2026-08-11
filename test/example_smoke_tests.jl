@@ -5,10 +5,10 @@
     # need a display. That makes them the weakest-verified surface in the
     # repository: all thirteen can be edited wrongly while the suite stays green.
     #
-    # This is a floor, not proof. It catches syntax damage and stale references to
-    # the removed path constants, which is the failure mode a bulk edit actually
-    # produces. It does not catch a script that parses fine and computes the wrong
-    # thing.
+    # These checks are a floor, not proof. They catch syntax damage, stale
+    # references to removed constants, and artifact calls that escaped a guard --
+    # the failure modes a bulk edit actually produces. They do not catch a script
+    # that parses fine and computes the wrong thing.
 
     examples_root = joinpath(pkgdir(Aquarium), "examples")
     scripts = String[]
@@ -36,6 +36,24 @@
                             "Aquarium.EXAMPLES_DIR", "Aquarium.TEST_DIR")
                 @test !occursin(removed, source)
             end
+
+            # Every artifact-producing call goes through a guard, so a default run
+            # writes nothing. A missed call site is exactly what a bulk edit leaves
+            # behind, and it would silently reintroduce unconditional file output.
+            @test !occursin(r"(?<!maybe_)\bsave\(", source)
+            @test !occursin(r"(?<!maybe_)\bjldsave\(", source)
+
+            animate_calls = [m.match for m in eachmatch(r"\banimate_[a-z_]+\(", source)]
+            unguarded = filter(c -> c != "animate_if_enabled(", animate_calls)
+            @test isempty(unguarded)
+
+            # No example reads back data it wrote in the same run. That round trip
+            # only worked because saving was unconditional.
+            @test !occursin(r"\bload\(", source)
+
+            # Figures are opened through the display guard, so a headless run --
+            # cluster, CI, over SSH -- does not try to open a viewer.
+            @test !occursin(r"(?<!maybe_)\bdisplay\(", source)
         end
     end
 end

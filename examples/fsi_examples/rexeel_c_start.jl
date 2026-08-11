@@ -301,9 +301,9 @@ vlines!(ax_ctrl, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_ctrl, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_ctrl, position=:rt)
-display(fig_ctrl)
-save(joinpath(vis_dir, "control_inputs.png"), fig_ctrl)
-println("Control input plot saved.")
+maybe_display(fig_ctrl)
+maybe_save(joinpath(vis_dir, "control_inputs.png"), fig_ctrl)
+SAVE_FIGURES && println("Control input plot saved.")
 
 #############################################################################################
 ## Simulate solid system only (no fluid)
@@ -381,9 +381,9 @@ vlines!(ax_solid_joints, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_solid_joints, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_solid_joints, position=:rt)
-display(fig_solid_joints)
-save(joinpath(vis_dir, "solid_joint_angles.png"), fig_solid_joints)
-println("Solid joint angles plot saved.")
+maybe_display(fig_solid_joints)
+maybe_save(joinpath(vis_dir, "solid_joint_angles.png"), fig_solid_joints)
+SAVE_FIGURES && println("Solid joint angles plot saved.")
 
 # Animate solid system
 fig_solid, ax_solid = create_aquarium_figure(;
@@ -398,11 +398,11 @@ fig_solid, ax_solid = create_aquarium_figure(;
 )
 
 plot_solid_systems!(fig_solid, ax_solid, [rexeel], [solid_midpoint_state_traj[end]])
-display(fig_solid)
+maybe_display(fig_solid)
 
 clear_aquarium_axis!(ax_solid)
 save_path_solid = joinpath(vis_dir, "solid_animation.mp4")
-animate_solid_systems(fig_solid, ax_solid,
+animate_if_enabled(animate_solid_systems, fig_solid, ax_solid,
     [rexeel],
     solid_time_traj,
     [solid_midpoint_state_traj],
@@ -410,7 +410,7 @@ animate_solid_systems(fig_solid, ax_solid,
     framerate=20,
     timescale=1.0,
 )
-println("Solid animation saved to: $save_path_solid")
+SAVE_ANIMATIONS && println("Solid animation saved to: $save_path_solid")
 
 #############################################################################################
 ## Initialize aquarium state
@@ -459,19 +459,15 @@ println("\nSimulation complete!")
 
 # Save simulation data
 save_file = data_file("rexeel_c_start.jld2")
-jldsave(save_file; trajectories)
-println("Results saved to: ", save_file)
+maybe_jldsave(save_file; trajectories)
+SAVE_DATA && println("Results saved to: ", save_file)
 println()
 
 #############################################################################################
 ## Load and process simulation data
 #############################################################################################
 
-# Load simulation data
-
-load_file = data_file("rexeel_c_start.jld2")
-data = load(load_file)
-trajectories = data["trajectories"]
+# trajectories is already in memory from the simulation above.
 
 # Extract trajectories
 time_traj = trajectories[:time_traj]
@@ -527,8 +523,8 @@ for i in 1:n_joints
 end
 
 axislegend(ax_joint, position=:rt)
-display(joint_fig)
-save(joinpath(vis_dir, "joint_angles.png"), joint_fig)
+maybe_display(joint_fig)
+maybe_save(joinpath(vis_dir, "joint_angles.png"), joint_fig)
 
 #############################################################################################
 ## Plot center of mass trajectory
@@ -574,8 +570,8 @@ lines!(ax_com, com_x, com_y, color=logocolors[1], linewidth=2, label="Center of 
 scatter!(ax_com, [com_x[1]], [com_y[1]], color=logocolors[3], markersize=15, label="Start")
 scatter!(ax_com, [com_x[end]], [com_y[end]], color=logocolors[2], markersize=15, label="End")
 axislegend(ax_com, position=:lb)
-display(com_fig)
-save(joinpath(vis_dir, "com_trajectory.png"), com_fig)
+maybe_display(com_fig)
+maybe_save(joinpath(vis_dir, "com_trajectory.png"), com_fig)
 
 # Print displacement
 println("Vertical displacement: $(com_y[end] - com_y[1]) cm")
@@ -634,8 +630,8 @@ vlines!(ax_com_vel, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_com_vel, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_com_vel, position=:lt)
-display(com_vel_fig)
-save(joinpath(vis_dir, "com_velocity.png"), com_vel_fig)
+maybe_display(com_vel_fig)
+maybe_save(joinpath(vis_dir, "com_velocity.png"), com_vel_fig)
 
 # Print velocity statistics
 println("Peak velocity magnitude: $(maximum(com_v_mag)) cm/s")
@@ -725,10 +721,10 @@ vlines!(ax_orient, [T_prep], color=:gray, linestyle=:dash, linewidth=1)
 vlines!(ax_orient, [T_prep + T_prop], color=:gray, linestyle=:dash, linewidth=1)
 
 axislegend(ax_orient, position=:rt)
-display(orient_fig)
-save(joinpath(vis_dir, "swimmer_orientation.png"), orient_fig)
+maybe_display(orient_fig)
+maybe_save(joinpath(vis_dir, "swimmer_orientation.png"), orient_fig)
 
-println("Orientation plot saved.")
+SAVE_FIGURES && println("Orientation plot saved.")
 println("  Initial head angle: $(rad2deg(head_angle[1]))°")
 println("  Final head angle: $(rad2deg(head_angle[end]))°")
 println("  Total head rotation: $(rad2deg(head_angle[end] - head_angle[1]))°")
@@ -767,12 +763,12 @@ plot_velocity_field!(fig, ax,
     smooth=true,
     smooth_sigma=3.0
 )
-display(fig)
-save(joinpath(vis_dir, "rexeel_velocity_final.png"), fig)
+maybe_display(fig)
+maybe_save(joinpath(vis_dir, "rexeel_velocity_final.png"), fig)
 
 # Animate velocity field
 save_path = joinpath(vis_dir, "rexeel_velocity_animation.mp4")
-animate_velocity_field(fig, ax,
+animate_if_enabled(animate_velocity_field, fig, ax,
     fluid_env,
     nothing, rexeel,
     time_traj,
@@ -821,12 +817,12 @@ plot_vorticity_field!(fig, ax,
     smooth_sigma=4.0
 )
 
-display(fig)
-save(joinpath(vis_dir, "rexeel_vorticity_final.png"), fig)
+maybe_display(fig)
+maybe_save(joinpath(vis_dir, "rexeel_vorticity_final.png"), fig)
 
 # Animate vorticity field
 save_path = joinpath(vis_dir, "rexeel_vorticity_animation.mp4")
-animate_vorticity_field(fig, ax,
+animate_if_enabled(animate_vorticity_field, fig, ax,
     fluid_env,
     nothing, rexeel,
     time_traj,
@@ -842,7 +838,7 @@ animate_vorticity_field(fig, ax,
 )
 
 println("Visualization complete!")
-println("Results saved to: ", vis_dir)
+(SAVE_FIGURES || SAVE_ANIMATIONS) && println("Results saved to: ", vis_dir)
 
 com_x_N = com_x[end]
 com_y_N = com_y[end]

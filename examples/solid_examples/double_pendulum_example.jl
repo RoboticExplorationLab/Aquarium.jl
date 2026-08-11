@@ -118,12 +118,12 @@ energy_fig, energy_ax = create_aquarium_figure(;
 )
 
 lines!(energy_ax, time_traj, total_energy_traj, label="Total Energy", linewidth=2)
-display(energy_fig)
+maybe_display(energy_fig)
 
 # Save energy plot
 energy_save_path = joinpath(vis_dir, "double_pendulum_energy.png")
-save(energy_save_path, energy_fig)
-println("Energy plot saved to: $energy_save_path")
+maybe_save(energy_save_path, energy_fig)
+SAVE_FIGURES && println("Energy plot saved to: $energy_save_path")
 
 # Calculate energy drift
 initial_energy = total_energy_traj[1]
@@ -160,7 +160,7 @@ plot_solid_systems!(fig, ax, [double_pendulum], [midpoint_state_traj[2]])
 # Create animation
 clear_aquarium_axis!(ax)
 save_path = joinpath(vis_dir, "double_pendulum_animation.mp4")
-animate_solid_systems(
+animate_if_enabled(animate_solid_systems, 
     fig,
     ax,
     [double_pendulum],

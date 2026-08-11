@@ -168,11 +168,11 @@ fig, ax = create_aquarium_figure(;
     use_data_aspect=true
 )
 plot_solid_systems!(fig, ax, [rexeel], [midpoint_state_traj[end]])
-display(fig)
+maybe_display(fig)
 
 clear_aquarium_axis!(ax)
 save_path = joinpath(vis_dir, "rexeel_animation.mp4")
-animate_solid_systems(fig, ax,
+animate_if_enabled(animate_solid_systems, fig, ax,
     [rexeel],
     time_traj,
     [midpoint_state_traj],
@@ -231,4 +231,4 @@ lines!(ax_joint, time_control, rad2deg.(desired_φ2),
     color=logocolors[2], linewidth=2, linestyle=:dash, label="Desired φ₂")
 
 axislegend(ax_joint, position=:rt)
-display(joint_fig)
+maybe_display(joint_fig)

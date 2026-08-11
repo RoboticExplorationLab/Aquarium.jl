@@ -146,12 +146,12 @@ aquarium_fig, aquarium_ax = create_aquarium_figure(resolution=resolution,
     fontsize=fontsize
 )
 plot_solid_systems!(aquarium_fig, aquarium_ax, [eel], [midpoint_state_traj[end]])
-display(aquarium_fig)
+maybe_display(aquarium_fig)
 
 # Animate (subsample for faster rendering)
 clear_aquarium_axis!(aquarium_ax)
 save_path = joinpath(vis_dir, "eel_animation.mp4")
-animate_solid_systems(aquarium_fig, aquarium_ax,
+animate_if_enabled(animate_solid_systems, aquarium_fig, aquarium_ax,
     [eel],
     time_traj,
     [midpoint_state_traj],

@@ -226,7 +226,7 @@ axislegend(ax,
     orientation=:horizontal,
     nbanks=1
 )
-display(fig)
+maybe_display(fig)
 
 #############################################################################################
 ## Plot energies for comparison
@@ -259,4 +259,4 @@ axislegend(ax2,
     orientation=:horizontal,
     nbanks=1
 )
-display(fig2)
+maybe_display(fig2)

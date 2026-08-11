@@ -78,7 +78,7 @@ fluid_sim_data = simulate_fluid(fluid_env, fluid_state_0, final_time;
 )
 
 save_file = data_file("lid_cavity_flow.jld2")
-jldsave(save_file;
+maybe_jldsave(save_file;
     fluid_sim_data
 );
 
@@ -86,8 +86,7 @@ jldsave(save_file;
 ## Import sim results
 #############################################################################################
 
-data = load(data_file("lid_cavity_flow.jld2"))
-fluid_sim_data = data["fluid_sim_data"]
+# fluid_sim_data is already in memory from the simulation above.
 t_traj = fluid_sim_data[:t_traj]
 fluid_velocity_traj = fluid_sim_data[:fluid_velocity_traj]
 fluid_pressure_traj = fluid_sim_data[:fluid_pressure_traj]
@@ -136,10 +135,10 @@ plot_streamlines!(fig, ax,
     [], [];
     density=50
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_streamlines_animation.mp4")
-animate_streamlines(fig, ax,
+animate_if_enabled(animate_streamlines, fig, ax,
     fluid_env,
     nothing, nothing,
     t_traj,
@@ -173,10 +172,10 @@ plot_vorticity_field!(fig, ax,
     min_threshold=-5.0,
     max_threshold=5.0
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_vorticity_animation.mp4")
-animate_vorticity_field(fig, ax,
+animate_if_enabled(animate_vorticity_field, fig, ax,
     fluid_env,
     nothing, nothing,
     t_traj,
@@ -217,10 +216,10 @@ plot_velocity_field!(fig, ax,
     tipcolor=logocolors.blue,
     shaftcolor=logocolors.blue,
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_velocity_field_animation.mp4")
-animate_velocity_field(fig, ax,
+animate_if_enabled(animate_velocity_field, fig, ax,
     fluid_env,
     nothing, nothing,
     t_traj,
@@ -259,10 +258,10 @@ plot_pressure_field!(fig, ax,
     [], [];
 
 )
-display(fig)
+maybe_display(fig)
 
 save_path = joinpath(vis_dir, "lid_cavity_pressure_field_animation.mp4")
-animate_pressure_field(fig, ax,
+animate_if_enabled(animate_pressure_field, fig, ax,
     fluid_env,
     nothing, nothing,
     t_traj,

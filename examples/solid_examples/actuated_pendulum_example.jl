@@ -136,11 +136,11 @@ fig, ax = create_aquarium_figure(;
     use_data_aspect = true,
 )
 plot_solid_systems!(fig, ax, [pendulum], [midpoint_state_traj[end]])
-display(fig)
+maybe_display(fig)
 
 clear_aquarium_axis!(ax)
 save_path = joinpath(vis_dir, "actuated_pendulum_animation.mp4")
-animate_solid_systems(fig, ax,
+animate_if_enabled(animate_solid_systems, fig, ax,
     [pendulum],
     time_traj,
     [midpoint_state_traj],
@@ -173,4 +173,4 @@ lines!(ax_angle, time_control, rad2deg.(desired_angles),
     color = logocolors[2], linewidth = 2, linestyle = :dash, label = "Target θ")
 
 axislegend(ax_angle, position = :rt)
-display(angle_fig)
+maybe_display(angle_fig)

@@ -233,4 +233,4 @@ axislegend(ax,
     orientation=:horizontal,
     nbanks=1
 )
-display(fig)
+maybe_display(fig)
