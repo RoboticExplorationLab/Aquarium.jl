@@ -1,0 +1,10 @@
+{
+    "julia.executablePath": "/Users/jj/.juliaup/bin/julia",
+    "terminal.integrated.env.osx": {
+        "PATH": "/Users/jj/.juliaup/bin:${env:PATH}"
+    },
+    "julia.NumThreads": "auto",
+    "claudeCode.environmentVariables": [
+
+    ]
+}
