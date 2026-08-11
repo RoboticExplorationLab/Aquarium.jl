@@ -453,7 +453,7 @@ function calculate_original_fsi_vector_kernel_product_jacobian(
 end
 
 @testitem "Original FSI kernel matrix" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     fluid = Fluid(0.01;
@@ -497,7 +497,7 @@ end
 end
 
 @testitem "Original FSI kernel Jacobians" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     fluid = Fluid(0.01;
@@ -535,7 +535,7 @@ end
 end
 
 @testitem "Original FSI kernel matrix (three-point)" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     fluid = Fluid(0.01;
@@ -590,7 +590,7 @@ end
 end
 
 @testitem "Original FSI kernel Jacobians (three-point)" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     fluid = Fluid(0.01;

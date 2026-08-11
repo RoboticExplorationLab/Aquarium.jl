@@ -225,7 +225,7 @@ function calculate_preconditioner(A, x, preconditioner_type;
         pardiso_solve!(preconditioner_solver, A, x)
 
         # Create preconditioner struct using the extension's type
-        PardisoExt = Base.get_extension(AquariumClosed, :PardisoExt)
+        PardisoExt = Base.get_extension(Aquarium, :PardisoExt)
         preconditioner = PardisoExt.PardisoPreconditioner(preconditioner_solver, A)
 
     end

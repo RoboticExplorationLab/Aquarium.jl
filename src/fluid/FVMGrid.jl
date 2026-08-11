@@ -432,7 +432,7 @@ function calculate_constant_boundary_condition_vector_jacobian(grid::FVMGrid,
 end
 
 @testitem "3×3 Grid Boundary Indices" begin
-    using AquariumClosed
+    using Aquarium
     grid = FVMGrid((1, 1), (1.0, 1.0))
 
     @test (typeof(grid.vx_left_indices) <: Vector{Int}) &
@@ -466,7 +466,7 @@ end
 end
 
 @testitem "4×3 Grid Boundary Indices" begin
-    using AquariumClosed
+    using Aquarium
     grid = FVMGrid((2, 1), (1.0, 1.0))
 
     @test (grid.vx_left_indices == [2]) &
@@ -486,7 +486,7 @@ end
 end
 
 @testitem "3×4 Grid Boundary Indices" begin
-    using AquariumClosed
+    using Aquarium
     grid = FVMGrid((1, 2), (1.0, 1.0))
 
     @test (grid.vx_left_indices == [2, 3]) &
@@ -506,7 +506,7 @@ end
 end
 
 @testitem "Cell Boundary Index Properties" begin
-    using AquariumClosed
+    using Aquarium
     grid_size = (5, 5)
     grid = FVMGrid(grid_size, (1.0, 1.0))
 

@@ -101,7 +101,7 @@ function calculate_new_actuator_force end
 
 
 @testitem "ActuatedSystem" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "RExEel" begin

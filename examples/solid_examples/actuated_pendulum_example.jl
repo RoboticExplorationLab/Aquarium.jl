@@ -1,15 +1,15 @@
 import Pkg
 Pkg.activate(joinpath(@__DIR__,".."))
 
-using AquariumClosed
-using AquariumClosed.LinearAlgebra
-using AquariumClosed.ForwardDiff
-using AquariumClosed.CairoMakie
+using Aquarium
+using Aquarium.LinearAlgebra
+using Aquarium.ForwardDiff
+using Aquarium.CairoMakie
 using Colors
 using JLD2
 using Test
 
-vis_dir = joinpath(AquariumClosed.VIS_DIR, "actuated_pendulum")
+vis_dir = joinpath(Aquarium.VIS_DIR, "actuated_pendulum")
 mkpath(vis_dir)
 
 #############################################################################################

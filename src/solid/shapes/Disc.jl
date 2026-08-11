@@ -28,7 +28,7 @@ function generate_boundary_nodes(disc::Disc{S}, n_nodes::Int) where {S}
 end
 
 @testitem "Disc" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
 
     @testset "construction" begin

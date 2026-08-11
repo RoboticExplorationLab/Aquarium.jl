@@ -669,7 +669,7 @@ function delta_product_segment_integral_derivatives(
 end
 
 @testitem "Weak-form FSI kernel matrix" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     fluid = Fluid(0.01;
@@ -717,7 +717,7 @@ end
 end
 
 @testitem "Weak-form FSI kernel Jacobians" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     fluid = Fluid(0.01;
@@ -762,7 +762,7 @@ end
 end
 
 @testitem "Weak-form FSI kernel matrix (three-point)" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     fluid = Fluid(0.01;
@@ -817,7 +817,7 @@ end
 end
 
 @testitem "Weak-form FSI kernel Jacobians (three-point)" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     fluid = Fluid(0.01;
@@ -855,7 +855,7 @@ end
 end
 
 @testitem "Weak-form long-segment support coverage" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     # A vertical bar with very few nodes creates segments much longer than the

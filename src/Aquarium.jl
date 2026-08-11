@@ -1,4 +1,4 @@
-module AquariumClosed
+module Aquarium
 
 # Flag to check if Pardiso extension is loaded
 const PARDISO_LOADED = Ref(false)
@@ -130,8 +130,8 @@ include("visualization/aquarium_animations.jl")
 ## Define directory paths
 const EXAMPLES_DIR = joinpath(@__DIR__, "..", "examples")
 const TEST_DIR = joinpath(@__DIR__, "..", "test")
-const VIS_DIR = expanduser(joinpath("~/aquariumCLOSED", "visualization"))
-const DATA_DIR = expanduser(joinpath("~/aquariumCLOSED", "data"))
+const VIS_DIR = expanduser(joinpath("~/aquarium", "visualization"))
+const DATA_DIR = expanduser(joinpath("~/aquarium", "data"))
 
 mkpath(EXAMPLES_DIR)
 mkpath(TEST_DIR)

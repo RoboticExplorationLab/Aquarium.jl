@@ -1,5 +1,5 @@
 @testitem "Passive pendulum integrator comparison" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using LinearAlgebra
 
@@ -64,7 +64,7 @@
 end
 
 @testitem "Actuated pendulum integrator comparison" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using LinearAlgebra
 
@@ -134,7 +134,7 @@ end
 end
 
 @testitem "Simulation gradient via ForwardDiff vs finite differences" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
 

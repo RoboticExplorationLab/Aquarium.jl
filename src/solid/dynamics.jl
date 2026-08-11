@@ -957,7 +957,7 @@ end
 
 
 @testitem "Multiplier extraction and torque feasibility" begin
-    using AquariumClosed
+    using Aquarium
     @testset "extract: ActuatedPendulum" begin
         ap = ActuatedPendulum(0.01; bar_length=1.0, mass=2.0, moi=0.1,
             hinge_position=[0.0, 0.0], Kp=50.0, Kd=5.0, max_torque=2.0,
@@ -1000,7 +1000,7 @@ end
 end
 
 @testitem "Prescribed angle constraint residual and VJP" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "WorldPinJoint (ActuatedPendulum)" begin
@@ -1065,7 +1065,7 @@ end
 end
 
 @testitem "PassiveSystem dynamics primitives" begin
-    using AquariumClosed
+    using Aquarium
     # One-body pendulum: length 2, mass 3, COM at body origin, hanging from (0,0).
     body = RigidBody(Bar(2.0); mass=3.0, moi=1.0)
     joint = WorldPinJoint([0.0, 0.0], 1, :root; equilibrium_angle=0.0, stiffness=0.0, damping=0.5)
@@ -1126,7 +1126,7 @@ end
 end
 
 @testitem "Pendulum dynamics residual and Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -1171,7 +1171,7 @@ end
 end
 
 @testitem "DoublePendulum dynamics residual and Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -1213,7 +1213,7 @@ end
 end
 
 @testitem "ActuatedPendulum dynamics residual and Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -1263,7 +1263,7 @@ end
 end
 
 @testitem "Prescribed ActuatedPendulum dynamics residual and Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -1314,7 +1314,7 @@ end
 end
 
 @testitem "Prescribed RExEel dynamics residual and Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -1363,7 +1363,7 @@ end
 end
 
 @testitem "PE Hessian analytical helpers" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "WorldPinJoint (ActuatedPendulum)" begin
@@ -1398,7 +1398,7 @@ end
 end
 
 @testitem "Damping force Jacobian analytical helpers" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "WorldPinJoint (ActuatedPendulum)" begin
@@ -1433,7 +1433,7 @@ end
 end
 
 @testitem "Actuator force Jacobian analytical helpers" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "WorldPinJoint unsaturated (ActuatedPendulum)" begin
@@ -1513,7 +1513,7 @@ end
 end
 
 @testitem "Forward joint constraint Jacobians" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "WorldPinJoint (ActuatedPendulum)" begin
@@ -1570,7 +1570,7 @@ end
 end
 
 @testitem "Prescribed angle constraint Jacobians" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "WorldPinJoint (ActuatedPendulum)" begin
@@ -1609,7 +1609,7 @@ end
 end
 
 @testitem "Analytical stationarity Jacobian ∂_∂kp1" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using Random
 

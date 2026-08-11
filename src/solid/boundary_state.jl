@@ -306,7 +306,7 @@ function calculate_boundary_velocity_vjp_jacobian(
 end
 
 @testitem "Boundary state Pendulum" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     system = Pendulum(0.01; bar_length=1.0, mass=2.0, moi=0.1,
@@ -343,7 +343,7 @@ end
 end
 
 @testitem "Boundary state DoublePendulum" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     system = DoublePendulum(0.01;
@@ -374,7 +374,7 @@ end
 end
 
 @testitem "Boundary state NoSystem" begin
-    using AquariumClosed
+    using Aquarium
     ns = NoSystem()
     state = Float64[]
 
@@ -390,7 +390,7 @@ end
 end
 
 @testitem "_boundary_velocity_body_vjp midpoint chain-rule" begin
-    using AquariumClosed
+    using Aquarium
     # Regression test for the bug where `_boundary_velocity_body_vjp` ignored
     # the midpoint chain-rule term when `is_midpoint_state=false`, causing a
     # ~5e-6 discrepancy in the angular-velocity row vs the true body-velocity
@@ -402,7 +402,7 @@ end
     # must match `-_boundary_velocity_body_vjp(system, midpoint_bs, dual;
     # is_midpoint_state=false)` at the velocity indices.
     using Random
-    using AquariumClosed: _boundary_velocity_body_vjp, calculate_no_slip_constraint_vjp,
+    using Aquarium: _boundary_velocity_body_vjp, calculate_no_slip_constraint_vjp,
                           calculate_midpoint_state
 
     Random.seed!(0)
@@ -480,10 +480,10 @@ end
 end
 
 @testitem "_boundary_velocity_body_vjp_jacobian analytical" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using Random
-    using AquariumClosed: _boundary_velocity_body_vjp, _boundary_velocity_body_vjp_jacobian
+    using Aquarium: _boundary_velocity_body_vjp, _boundary_velocity_body_vjp_jacobian
 
     @testset "FreeDisc midpoint=$mp" for mp in [true, false]
         Random.seed!(70)

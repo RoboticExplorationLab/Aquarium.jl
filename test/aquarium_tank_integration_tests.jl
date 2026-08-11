@@ -1,6 +1,6 @@
 @testmodule TankSetup begin
 
-using AquariumClosed
+using Aquarium
 using ForwardDiff
 using LinearAlgebra
 using Random
@@ -111,7 +111,7 @@ end  # TankSetup
 # Gradient test setup — reuses 20×20 TankSetup physics, adds shared objective functions.
 @testmodule GradientSetup begin
 
-using AquariumClosed
+using Aquarium
 using ForwardDiff
 using LinearAlgebra
 using Random
@@ -201,7 +201,7 @@ end  # GradientSetup
 # =========================================================================================
 
 @testitem "AquariumTank Construction" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
 
     tank = TankSetup.tank
@@ -260,7 +260,7 @@ end
 # =========================================================================================
 
 @testitem "State Extraction" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     tank = TankSetup.tank
     aquarium_state = TankSetup.aquarium_state_0
@@ -290,7 +290,7 @@ end
 # =========================================================================================
 
 @testitem "Initialize Aquarium State" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     tank = TankSetup.tank
     fluid_vel = TankSetup.fluid_initial_velocity
@@ -319,7 +319,7 @@ end
 # =========================================================================================
 
 @testitem "NoSystem Configurations" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     fluid = TankSetup.fluid
 
@@ -367,7 +367,7 @@ end
 # =========================================================================================
 
 @testitem "Dynamics Residual" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using Random
 
     tank = TankSetup.tank
@@ -409,7 +409,7 @@ end
 # =========================================================================================
 
 @testitem "Dynamics Jacobian Structure" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using Random
 
     tank = TankSetup.tank
@@ -456,7 +456,7 @@ end
 # =========================================================================================
 
 @testitem "Jacobian vs ForwardDiff and FiniteDiff" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -536,7 +536,7 @@ end
 # =========================================================================================
 
 @testitem "Simulation Objective Computation" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     tank = TankSetup.tank
     aquarium_state_0 = TankSetup.aquarium_state_0
@@ -604,7 +604,7 @@ end
 # =========================================================================================
 
 @testitem "Gradient wrt Fluid Properties" setup=[GradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     G = GradientSetup
@@ -666,7 +666,7 @@ end
 # =========================================================================================
 
 @testitem "Gradient wrt Bluff Body State Params" setup=[GradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     G = GradientSetup
@@ -727,7 +727,7 @@ end
 # =========================================================================================
 
 @testitem "Gradient wrt Control Params" setup=[GradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     G = GradientSetup
@@ -783,7 +783,7 @@ end
 # =========================================================================================
 
 @testitem "Gradient wrt Swimmer Params" setup=[GradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
     using ForwardDiff
 
@@ -864,7 +864,7 @@ end
 # =========================================================================================
 
 @testitem "Individual Gradient Flags" setup=[GradientSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     G = GradientSetup
     tank = G.tank
@@ -928,7 +928,7 @@ end
 # =========================================================================================
 
 @testitem "Swimmer State Dynamics Jacobians" setup=[GradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
     using LinearAlgebra
 
@@ -1012,7 +1012,7 @@ end
 # =========================================================================================
 
 @testitem "Torque Saturation Differentiability" setup=[TankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using LinearAlgebra
 
@@ -1081,7 +1081,7 @@ end
 
 @testmodule PrescribedTankSetup begin
 
-using AquariumClosed
+using Aquarium
 using ForwardDiff
 using LinearAlgebra
 using Random
@@ -1180,7 +1180,7 @@ end  # PrescribedTankSetup
 # =========================================================================================
 
 @testitem "Prescribed: AquariumTank Construction" setup=[PrescribedTankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
 
     tank = PrescribedTankSetup.tank
@@ -1245,7 +1245,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: State Extraction" setup=[PrescribedTankSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     tank = PrescribedTankSetup.tank
     aquarium_state = PrescribedTankSetup.aquarium_state_0
@@ -1275,7 +1275,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Initialize Aquarium State" setup=[PrescribedTankSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     tank = PrescribedTankSetup.tank
     fluid_vel = PrescribedTankSetup.fluid_initial_velocity
@@ -1304,7 +1304,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Dynamics Residual" setup=[PrescribedTankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using Random
 
     tank = PrescribedTankSetup.tank
@@ -1347,7 +1347,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Dynamics Jacobian Structure" setup=[PrescribedTankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using Random
 
     tank = PrescribedTankSetup.tank
@@ -1397,7 +1397,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Jacobian vs ForwardDiff and FiniteDiff" setup=[PrescribedTankSetup] begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -1478,7 +1478,7 @@ end
 
 @testmodule PrescribedGradientSetup begin
 
-using AquariumClosed
+using Aquarium
 using ForwardDiff
 using LinearAlgebra
 using Random
@@ -1568,7 +1568,7 @@ end  # PrescribedGradientSetup
 # =========================================================================================
 
 @testitem "Prescribed: Simulation Objective Computation" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     G = PrescribedGradientSetup
     tank = G.tank
@@ -1623,7 +1623,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Gradient wrt Control Params" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     G = PrescribedGradientSetup
@@ -1679,7 +1679,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Gradient wrt Fluid Properties" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     G = PrescribedGradientSetup
@@ -1740,7 +1740,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Gradient wrt Swimmer Params" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
     using ForwardDiff
 
@@ -1821,7 +1821,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Gradient wrt Bluff Body State Params" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     G = PrescribedGradientSetup
@@ -1882,7 +1882,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Individual Gradient Flags" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
 
     G = PrescribedGradientSetup
     tank = G.tank
@@ -1946,7 +1946,7 @@ end
 # =========================================================================================
 
 @testitem "Prescribed: Swimmer State Dynamics Jacobians" setup=[PrescribedGradientSetup] begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
     using LinearAlgebra
 

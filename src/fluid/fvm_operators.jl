@@ -94,7 +94,7 @@ function calculate_midpoint_operators(grid::FVMGrid)
 end
 
 @testitem "4×3 Grid Midpoint Operators" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     grid_size = (2, 1) # remember, number of cells = grid_size .+ 2
@@ -126,7 +126,7 @@ end
 end
 
 @testitem "3×4 Grid Midpoint Operators" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     grid_size = (1, 2) # remember, number of cells = grid_size .+ 2
@@ -203,7 +203,7 @@ function calculate_laplacian_operator(grid::FVMGrid)
 end
 
 @testitem "4×3 Grid Laplacian" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using SparseArrays
 
@@ -224,7 +224,7 @@ end
 end
 
 @testitem "3×4 Grid Laplacian" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using SparseArrays
 
@@ -285,7 +285,7 @@ function calculate_divergence_operator(grid::FVMGrid)
 end
 
 @testitem "4×3 Grid Divergence" begin
-    using AquariumClosed
+    using Aquarium
     grid_size = (2, 1) # remember, number of cells = grid_size .+ 2
     grid_dimensions = (11.0, 5.0)
 
@@ -299,7 +299,7 @@ end
 end
 
 @testitem "3×4 Grid Divergence" begin
-    using AquariumClosed
+    using Aquarium
     grid_size = (1, 2) # remember, number of cells = grid_size .+ 2
     grid_dimensions = (7.0, 3.0)
 

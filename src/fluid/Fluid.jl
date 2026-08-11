@@ -1244,7 +1244,7 @@ function simulate_fluid(fluid::Fluid,
 end
 
 @testitem "Fluid keyword constructor — basic fields" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -1274,7 +1274,7 @@ end
 end
 
 @testitem "Fluid keyword constructor — derived quantities" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -1303,7 +1303,7 @@ end
 end
 
 @testitem "Wall Boundary Conditions" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -1429,7 +1429,7 @@ end
 end
 
 @testitem "Lid Cavity Boundary Conditions" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -1573,7 +1573,7 @@ end
 
 end
 @testitem "Channel Flow Theoretical Boundary Conditions" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -1750,7 +1750,7 @@ end
 end
 
 @testitem "Channel Flow Uniform Boundary Conditions" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -1916,7 +1916,7 @@ end
 end
 
 @testitem "Freestream Boundary Conditions" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     function create_test_fluid(;
@@ -2104,7 +2104,7 @@ end
 end
 
 @testitem "Fluid Basic Properties" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -2154,7 +2154,7 @@ end
 end
 
 @testitem "FVM Grid and State Dimensions" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -2208,7 +2208,7 @@ end
 end
 
 @testitem "Gravitational and Pressure Gradient Forces" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -2271,7 +2271,7 @@ end
 end
 
 @testitem "FVM Operators" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     time_step = 0.01
@@ -2358,7 +2358,7 @@ end
 end
 
 @testitem "Convective Term Calculation" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -2404,7 +2404,7 @@ end
 end
 
 @testitem "Convective Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -2451,7 +2451,7 @@ end
 end
 
 @testitem "Mass Conservation Constraint" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -2552,7 +2552,7 @@ end
 end
 
 @testitem "Recompute BC Vector Flag" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -2648,7 +2648,7 @@ end
 end
 
 @testitem "Boundary Condition Constraint" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -2717,7 +2717,7 @@ end
 end
 
 @testitem "Fluid Stationarity Residual" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -2780,7 +2780,7 @@ end
 end
 
 @testitem "Fluid Stationarity Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -2853,7 +2853,7 @@ end
 end
 
 @testitem "Fluid Dynamics Residual" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -2907,7 +2907,7 @@ end
 end
 
 @testitem "Fluid Dynamics-Residual Jacobian" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -2983,7 +2983,7 @@ end
 end
 
 @testitem "Differentiability w.r.t. Fluid Properties" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -3085,7 +3085,7 @@ end
 end
 
 @testitem "Fluid State Initialization" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -3136,7 +3136,7 @@ end
 end
 
 @testitem "Fluid with Different Boundary Conditions" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -3242,7 +3242,7 @@ end
 end
 
 @testitem "Fluid with External Pressure Gradient" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -3309,7 +3309,7 @@ end
 end
 
 @testitem "Sparse Matrix Properties" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
 
     time_step = 0.01
@@ -3357,7 +3357,7 @@ end
 end
 
 @testitem "Potential Energy Calculation" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -3439,7 +3439,7 @@ end
 end
 
 @testitem "Kinetic Energy Calculation" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -3518,7 +3518,7 @@ end
 end
 
 @testitem "Total Energy Calculation" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -3615,7 +3615,7 @@ end
 end
 
 @testitem "Energy Conservation Properties" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using ForwardDiff
 
@@ -3691,7 +3691,7 @@ end
 end
 
 @testitem "Ruiz Scaling on 200x200 Grid" begin
-    using AquariumClosed
+    using Aquarium
     using SparseArrays
     using Statistics
 
@@ -3922,7 +3922,7 @@ end
 end
 
 @testitem "Simulation Objective Value and Trajectory" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -4041,7 +4041,7 @@ end
 end
 
 @testitem "Gradient Computation" begin
-    using AquariumClosed
+    using Aquarium
     using LinearAlgebra
     using FiniteDiff
 

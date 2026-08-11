@@ -83,7 +83,7 @@ end
 
 
 @testitem "Fluid collect_differentiable_params — canonical ordering" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -114,7 +114,7 @@ end
 end
 
 @testitem "Fluid inject_differentiable_params — round-trip equality" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -155,7 +155,7 @@ end
 end
 
 @testitem "Fluid inject_differentiable_params — perturbation updates derived caches" begin
-    using AquariumClosed
+    using Aquarium
     time_step = 0.01
     density = 1000.0
     dynamic_viscosity = 0.001
@@ -194,7 +194,7 @@ end
 end
 
 @testitem "Fluid inject_differentiable_params — Dual propagation" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     time_step = 0.01
@@ -237,7 +237,7 @@ end
 end
 
 @testitem "Fluid inject_differentiable_params — ForwardDiff.gradient vs finite-diff on stationarity loss" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
 

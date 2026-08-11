@@ -36,7 +36,7 @@ end
 
 
 @testitem "Bar" begin
-    using AquariumClosed
+    using Aquarium
     @testset "construction" begin
         bar = Bar(1.5)
         @test bar.length == 1.5

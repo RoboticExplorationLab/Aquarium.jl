@@ -99,14 +99,14 @@ git-tree-sha1 = "e092fa223bf66a3c41f9c022bd074d916dc303e7"
 uuid = "27a7e980-b3e6-11e9-2bcd-0b925532e340"
 version = "0.4.2"
 
-[[deps.AquariumClosed]]
+[[deps.Aquarium]]
 deps = ["AMD", "AlgebraicMultigrid", "CairoMakie", "Colors", "ExportAll", "ForwardDiff", "Gridap", "GridapPETSc", "GridapSolvers", "ILUZero", "ImageFiltering", "IncompleteLU", "Integrals", "Interpolations", "Krylov", "LinearAlgebra", "MPI", "MUMPS", "Metis", "Optim", "PartitionedArrays", "Pkg", "ProgressMeter", "QuadGK", "Rotations", "SparseArrays", "SymRCM", "TestItems"]
-path = "/Users/jj/.julia/dev/AquariumClosed/examples/case_studies/../.."
-uuid = "d664b5a4-ade6-4aea-89a7-ee1f76586cff"
+path = "/Users/jj/.julia/dev/Aquarium/examples/case_studies/../.."
+uuid = "573b866c-df5d-4d04-a64d-e63f6171118b"
 version = "1.0.0-DEV"
 weakdeps = ["Pardiso"]
 
-    [deps.AquariumClosed.extensions]
+    [deps.Aquarium.extensions]
     PardisoExt = "Pardiso"
 
 [[deps.ArgCheck]]

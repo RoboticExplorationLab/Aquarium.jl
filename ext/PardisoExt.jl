@@ -1,6 +1,6 @@
 module PardisoExt
 
-using AquariumClosed
+using Aquarium
 using Pardiso
 using LinearAlgebra
 using SparseArrays
@@ -51,67 +51,67 @@ end
 # Wrapper functions for Pardiso operations
 # These allow the main module to use Pardiso without directly importing it
 
-function AquariumClosed.create_pardiso_solver()
+function Aquarium.create_pardiso_solver()
     return Pardiso.MKLPardisoSolver()
 end
 
-function AquariumClosed.pardiso_set_nprocs!(solver::Pardiso.MKLPardisoSolver, n::Int)
+function Aquarium.pardiso_set_nprocs!(solver::Pardiso.MKLPardisoSolver, n::Int)
     Pardiso.set_nprocs!(solver, n)
 end
 
-function AquariumClosed.pardiso_set_matrixtype!(solver::Pardiso.MKLPardisoSolver, ::Val{:REAL_NONSYM})
+function Aquarium.pardiso_set_matrixtype!(solver::Pardiso.MKLPardisoSolver, ::Val{:REAL_NONSYM})
     Pardiso.set_matrixtype!(solver, Pardiso.REAL_NONSYM)
 end
 
-function AquariumClosed.pardiso_init!(solver::Pardiso.MKLPardisoSolver)
+function Aquarium.pardiso_init!(solver::Pardiso.MKLPardisoSolver)
     Pardiso.pardisoinit(solver)
 end
 
-function AquariumClosed.pardiso_fix_iparm!(solver::Pardiso.MKLPardisoSolver)
+function Aquarium.pardiso_fix_iparm!(solver::Pardiso.MKLPardisoSolver)
     Pardiso.fix_iparm!(solver, :N)
 end
 
-function AquariumClosed.pardiso_set_iparm!(solver::Pardiso.MKLPardisoSolver, parm::Int, value::Int)
+function Aquarium.pardiso_set_iparm!(solver::Pardiso.MKLPardisoSolver, parm::Int, value::Int)
     Pardiso.set_iparm!(solver, parm, value)
 end
 
-function AquariumClosed.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:ANALYSIS})
+function Aquarium.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:ANALYSIS})
     Pardiso.set_phase!(solver, Pardiso.ANALYSIS)
 end
 
-function AquariumClosed.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:ANALYSIS_NUM_FACT})
+function Aquarium.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:ANALYSIS_NUM_FACT})
     Pardiso.set_phase!(solver, Pardiso.ANALYSIS_NUM_FACT)
 end
 
-function AquariumClosed.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:SOLVE_ITERATIVE_REFINE})
+function Aquarium.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:SOLVE_ITERATIVE_REFINE})
     Pardiso.set_phase!(solver, Pardiso.SOLVE_ITERATIVE_REFINE)
 end
 
-function AquariumClosed.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:RELEASE_ALL})
+function Aquarium.pardiso_set_phase!(solver::Pardiso.MKLPardisoSolver, ::Val{:RELEASE_ALL})
     Pardiso.set_phase!(solver, Pardiso.RELEASE_ALL)
 end
 
 # Pardiso solve with different signatures
-function AquariumClosed.pardiso_solve!(solver::Pardiso.MKLPardisoSolver, matrix, vector)
+function Aquarium.pardiso_solve!(solver::Pardiso.MKLPardisoSolver, matrix, vector)
     Pardiso.pardiso(solver, matrix, vector)
 end
 
-function AquariumClosed.pardiso_solve!(solver::Pardiso.MKLPardisoSolver, output, matrix, input)
+function Aquarium.pardiso_solve!(solver::Pardiso.MKLPardisoSolver, output, matrix, input)
     Pardiso.pardiso(solver, output, matrix, input)
 end
 
-function AquariumClosed.pardiso_solve!(solver::Pardiso.MKLPardisoSolver)
+function Aquarium.pardiso_solve!(solver::Pardiso.MKLPardisoSolver)
     Pardiso.pardiso(solver)
 end
 
-function AquariumClosed.pardiso_factorize!(solver::Pardiso.MKLPardisoSolver, matrix, vector)
+function Aquarium.pardiso_factorize!(solver::Pardiso.MKLPardisoSolver, matrix, vector)
     Pardiso.set_phase!(solver, Pardiso.ANALYSIS_NUM_FACT)
     Pardiso.pardiso(solver, matrix, vector)
 end
 
 # Indicate that Pardiso is loaded
 function __init__()
-    AquariumClosed.PARDISO_LOADED[] = true
+    Aquarium.PARDISO_LOADED[] = true
 end
 
 end # module

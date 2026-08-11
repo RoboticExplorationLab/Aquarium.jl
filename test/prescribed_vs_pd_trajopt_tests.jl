@@ -1,5 +1,5 @@
 @testitem "Swing-up trajopt: :prescribed converges faster than :pd" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using LinearAlgebra
 

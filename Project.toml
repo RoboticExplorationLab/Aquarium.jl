@@ -1,5 +1,5 @@
-name = "AquariumClosed"
-uuid = "d664b5a4-ade6-4aea-89a7-ee1f76586cff"
+name = "Aquarium"
+uuid = "573b866c-df5d-4d04-a64d-e63f6171118b"
 authors = ["JJ Lee <jeonghun.jj.lee@gmail.com> and contributors"]
 version = "1.0.0-DEV"
 

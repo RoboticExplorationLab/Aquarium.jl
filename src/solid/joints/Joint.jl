@@ -7,7 +7,7 @@ function calculate_joint_damping_force end
 
 
 @testitem "Joint construction" begin
-    using AquariumClosed
+    using Aquarium
     @testset "PinJoint" begin
         j = PinJoint(1, :tip, 2, :root;
             equilibrium_angle=0.1, stiffness=5.0, damping=0.2)
@@ -37,7 +37,7 @@ function calculate_joint_damping_force end
 end
 
 @testitem "Joint residuals and energies" begin
-    using AquariumClosed
+    using Aquarium
     # Two bars of length 2, both at θ=0.
     # Body 1 centered at (0,0), tip at (+1, 0).
     # Body 2 centered at (2,0), root at (+1, 0).

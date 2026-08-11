@@ -3,15 +3,15 @@ Pkg.activate(joinpath(@__DIR__,".."))
 Pkg.develop(path=joinpath(@__DIR__,"..",".."))
 Pkg.instantiate()
 
-using AquariumClosed
-using AquariumClosed.LinearAlgebra
-using AquariumClosed.CairoMakie
+using Aquarium
+using Aquarium.LinearAlgebra
+using Aquarium.CairoMakie
 using Pardiso
 using Colors
 using JLD2
 using Test
 
-vis_dir = joinpath(AquariumClosed.VIS_DIR, "lid_cavity_flow")
+vis_dir = joinpath(Aquarium.VIS_DIR, "lid_cavity_flow")
 mkpath(vis_dir)
 
 #############################################################################################
@@ -81,7 +81,7 @@ fluid_sim_data = simulate_fluid(fluid_env, fluid_state_0, final_time;
     lazy=true, verbose=false
 )
 
-save_file = joinpath(AquariumClosed.DATA_DIR, "lid_cavity_flow.jld2")
+save_file = joinpath(Aquarium.DATA_DIR, "lid_cavity_flow.jld2")
 jldsave(save_file;
     fluid_sim_data
 );
@@ -90,7 +90,7 @@ jldsave(save_file;
 ## Import sim results
 #############################################################################################
 
-data = load(joinpath(AquariumClosed.DATA_DIR, "lid_cavity_flow.jld2"))
+data = load(joinpath(Aquarium.DATA_DIR, "lid_cavity_flow.jld2"))
 fluid_sim_data = data["fluid_sim_data"]
 t_traj = fluid_sim_data[:t_traj]
 fluid_velocity_traj = fluid_sim_data[:fluid_velocity_traj]

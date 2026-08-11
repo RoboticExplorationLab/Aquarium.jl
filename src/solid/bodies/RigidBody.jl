@@ -38,7 +38,7 @@ _convert_shape(shape::Disc, ::Type{S}) where {S} = Disc{S}(convert(S, shape.radi
 
 
 @testitem "RigidBody" begin
-    using AquariumClosed
+    using Aquarium
     body = RigidBody(Bar(1.0);
         mass=2.5, moi=0.3, com_offset=[0.1, -0.2],
         n_boundary_nodes=16, ib_method=:weak_form)

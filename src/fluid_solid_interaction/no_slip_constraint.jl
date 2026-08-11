@@ -524,7 +524,7 @@ function calculate_no_slip_constraint_vjp_jacobian(fluid::Fluid,
 end
 
 @testitem "No-slip single body original" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -649,7 +649,7 @@ end
 end
 
 @testitem "No-slip single body weak form" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -764,7 +764,7 @@ end
 end
 
 @testitem "No-slip multi body" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using Random
@@ -877,7 +877,7 @@ end
 end
 
 @testitem "No-slip no body" begin
-    using AquariumClosed
+    using Aquarium
     fluid = Fluid(0.01;
         density=1.0, dynamic_viscosity=0.01,
         boundary_velocity=[0.0, 0.0],

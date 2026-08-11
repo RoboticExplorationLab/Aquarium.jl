@@ -1,15 +1,15 @@
 import Pkg
 Pkg.activate(joinpath(@__DIR__,".."))
 
-using AquariumClosed
-using AquariumClosed.LinearAlgebra
-using AquariumClosed.ForwardDiff
-using AquariumClosed.CairoMakie
+using Aquarium
+using Aquarium.LinearAlgebra
+using Aquarium.ForwardDiff
+using Aquarium.CairoMakie
 using Colors
 using JLD2
 using Test
 
-vis_dir = joinpath(AquariumClosed.VIS_DIR, "rexeel_forward_swimming")
+vis_dir = joinpath(Aquarium.VIS_DIR, "rexeel_forward_swimming")
 mkpath(vis_dir)
 
 #############################################################################################
@@ -429,7 +429,7 @@ trajectories = simulate_aquarium(
 println("\nSimulation complete!")
 
 # Save simulation data
-save_file = joinpath(AquariumClosed.DATA_DIR, "rexeel_forward_swimming.jld2")
+save_file = joinpath(Aquarium.DATA_DIR, "rexeel_forward_swimming.jld2")
 jldsave(save_file; trajectories)
 println("Results saved to: ", save_file)
 println()
@@ -439,7 +439,7 @@ println()
 #############################################################################################
 
 # Load simulation data
-load_file = joinpath(AquariumClosed.DATA_DIR, "rexeel_forward_swimming.jld2")
+load_file = joinpath(Aquarium.DATA_DIR, "rexeel_forward_swimming.jld2")
 data = load(load_file)
 trajectories = data["trajectories"]
 

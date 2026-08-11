@@ -114,7 +114,7 @@ end
 
 
 @testitem "PassiveSystem assembly" begin
-    using AquariumClosed
+    using Aquarium
     @testset "single body with world hinge" begin
         body = RigidBody(Bar(1.0); mass=1.0, moi=0.1)
         joint = WorldPinJoint([0.0, 0.0], 1, :root; stiffness=0.0)
@@ -191,7 +191,7 @@ end
 end
 
 @testitem "SystemTopology" begin
-    using AquariumClosed
+    using Aquarium
     @testset "PassiveSystem with single RigidBody (FreeBar)" begin
         sys = FreeBar(0.01; bar_length=2.0, mass=3.0, moi=0.5, n_boundary_nodes=8)
         topo = sys.topology

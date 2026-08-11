@@ -85,7 +85,7 @@ end
 
 
 @testitem "Prescribed mode simulation" begin
-    using AquariumClosed
+    using Aquarium
     using FiniteDiff
 
     @testset "ActuatedPendulum: constant angle hold" begin

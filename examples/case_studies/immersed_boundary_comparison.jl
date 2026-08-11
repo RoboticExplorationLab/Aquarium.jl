@@ -1,14 +1,14 @@
 import Pkg
 Pkg.activate(joinpath(@__DIR__,".."))
 
-using AquariumClosed
-using AquariumClosed.LinearAlgebra
-using AquariumClosed.CairoMakie
+using Aquarium
+using Aquarium.LinearAlgebra
+using Aquarium.CairoMakie
 using Colors
 using JLD2
 
-vis_dir = joinpath(AquariumClosed.VIS_DIR, "case_studies/immersed_boundary_comparison")
-data_dir = joinpath(AquariumClosed.DATA_DIR, "case_studies/immersed_boundary_comparison")
+vis_dir = joinpath(Aquarium.VIS_DIR, "case_studies/immersed_boundary_comparison")
+data_dir = joinpath(Aquarium.DATA_DIR, "case_studies/immersed_boundary_comparison")
 mkpath(vis_dir)
 mkpath(data_dir)
 

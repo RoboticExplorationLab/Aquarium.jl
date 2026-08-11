@@ -91,11 +91,11 @@ end
 
 
 @testitem "NoSystem singleton" begin
-    using AquariumClosed
+    using Aquarium
     @testset "constructor and type" begin
         ns = NoSystem()
         @test ns isa NoSystem
-        @test ns isa AquariumClosed.SolidSystem
+        @test ns isa Aquarium.SolidSystem
     end
 
     @testset "scalar property reads" begin

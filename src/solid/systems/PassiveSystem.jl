@@ -122,7 +122,7 @@ end
 
 
 @testitem "PassiveSystem" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     @testset "empty system" begin

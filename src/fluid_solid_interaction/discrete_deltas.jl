@@ -257,7 +257,7 @@ function three_point_discrete_delta_derivative(r)
 end
 
 @testitem "One-point discrete delta" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     # Partition of unity: sum of delta over all grid nodes = 1 for any point
@@ -307,7 +307,7 @@ end
 end
 
 @testitem "Three-point discrete delta" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     # Partition of unity: sum of delta over all grid nodes = 1
@@ -349,7 +349,7 @@ end
 end
 
 @testitem "Discrete delta dispatchers" begin
-    using AquariumClosed
+    using Aquarium
     # delta_support_radius
     @test delta_support_radius(:one_point) == 1.0
     @test delta_support_radius(:three_point) == 1.5
@@ -376,7 +376,7 @@ end
 end
 
 @testitem "Delta product segment integrals" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using QuadGK
 
@@ -427,7 +427,7 @@ end
 end
 
 @testitem "Three-point delta product segment integrals" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using QuadGK
 

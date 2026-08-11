@@ -1,5 +1,5 @@
 [deps]
-AquariumClosed = "d664b5a4-ade6-4aea-89a7-ee1f76586cff"
+Aquarium = "573b866c-df5d-4d04-a64d-e63f6171118b"
 ArucoTracking = "542915db-1be8-4965-9747-bb26d7dddac3"
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"

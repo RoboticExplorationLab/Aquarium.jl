@@ -3,17 +3,17 @@ Pkg.activate(joinpath(@__DIR__,".."))
 Pkg.develop(path=joinpath(@__DIR__,"..",".."))
 Pkg.instantiate()
 
-using AquariumClosed
-using AquariumClosed.LinearAlgebra
-using AquariumClosed.ForwardDiff
-using AquariumClosed.CairoMakie
+using Aquarium
+using Aquarium.LinearAlgebra
+using Aquarium.ForwardDiff
+using Aquarium.CairoMakie
 using Pardiso
 using Colors
 using JLD2
 using Test
 using PGFPlotsX
 
-vis_dir = joinpath(AquariumClosed.VIS_DIR, "pendulum")
+vis_dir = joinpath(Aquarium.VIS_DIR, "pendulum")
 mkpath(vis_dir)
 
 #############################################################################################

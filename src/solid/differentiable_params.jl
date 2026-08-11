@@ -188,7 +188,7 @@ end
 
 
 @testitem "Differentiable params" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
 
     # One body + one WorldPinJoint + one PinJoint with a second body.

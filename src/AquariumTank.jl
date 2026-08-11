@@ -836,7 +836,7 @@ function calculate_aquarium_dynamics_jacobian(
 end
 
 @testitem "calculate_aquarium_dynamics_jacobian vs ForwardDiff" begin
-    using AquariumClosed
+    using Aquarium
     using ForwardDiff
     using FiniteDiff
     using LinearAlgebra
