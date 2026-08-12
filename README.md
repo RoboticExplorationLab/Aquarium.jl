@@ -11,7 +11,7 @@ design optimization of bodies moving in fluid.
 
 For the results of the studies for our RSS 2026 paper, please refer to this repo: https://github.com/RoboticExplorationLab/RoboticSwimmingWithUnifiedFluidRobot
 
-## Aquarium V2
+## Aquarium V0.2.0
 
 This is the new open-source, refactored version of Aquarium, based on our accepted RSS paper. It
 features:
